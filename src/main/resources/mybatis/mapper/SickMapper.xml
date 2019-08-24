@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lz.hospital.persistence.SickMapper">
+    <resultMap id="ksList" type="cn.lz.hospital.domain.KS">
+        <result column="ywdx_bm" property="id" jdbcType="INTEGER"/>
+        <result column="ywdx_name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="treatNoMap" type="java.util.Map">
+        <result column="treat_no" jdbcType="VARCHAR" property="treat_no"/>
+    </resultMap>
+    <resultMap id="ghTypeMap" type="cn.lz.hospital.domain.GhType">
+        <result column="reg_bm" jdbcType="VARCHAR" property="reg_bm"/>
+        <result column="reg_name" jdbcType="VARCHAR" property="reg_name"/>
+        <result column="reg_money" jdbcType="VARCHAR" property="reg_money"/>
+    </resultMap>
+    <!--科室列表查询-->
+    <select id="getAllById" resultMap="ksList" statementType="CALLABLE" parameterType="java.lang.Integer">
+        {call pMobile_KsList }
+    </select>
+    <!-- •	就诊人card_no唯一性验证 -->
+    <select id="checkUniqueness" resultType="java.lang.Integer" statementType="CALLABLE" parameterType="java.lang.String">
+        {call pMobile_CardVerification(#{card_no,mode=IN})}
+    </select>
+    <!--医生列表 -->
+    <select id="getDoctorAllList" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE">
+        {call pMobile_YsList}
+    </select>
+    <!-- 挂号-->
+    <select id="insertRegistration" resultMap="treatNoMap" statementType="CALLABLE">
+     {call pMobile_GhInsert(
+            #{name,mode=IN},
+            #{sex,mode=IN},
+            #{age,mode=IN},
+            #{ghtype,mode=IN},
+            #{doctor_id,mode=IN},
+            #{department_id,mode=IN},
+            #{card_no,mode=IN},
+            #{treat_no,mode=OUT}
+     )}
+    </select>
+    <!-- 挂号类别查询-->
+    <select id="getGhTypeAllList" resultMap="ghTypeMap" statementType="CALLABLE">
+        {call pMobile_GhTypeList}
+    </select>
+</mapper>

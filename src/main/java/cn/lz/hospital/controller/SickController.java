@@ -70,6 +70,7 @@ public class SickController extends BaseController {
         LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
     }
 
+
     /**
      * 医生列表
      *
@@ -89,6 +90,28 @@ public class SickController extends BaseController {
         outJSONMsg(response, outMsgBean);
         LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
     }
+
+    /**
+     * 根据科室id查找医生
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/getDoctorListByid")
+    public void getDoctorListByid(int department_id,HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        List<Doctor> doctorList = sickService.getDoctorById(department_id);
+        if (!ValidateUtil.checkListIsNotEmpty(doctorList)) {
+            outMsgBean = new OutMsgBean(-100, "查无数据");
+            outJSONMsg(response, outMsgBean);
+            return;
+        }
+        outMsgBean = new OutMsgBean(doctorList);
+        outJSONMsg(response, outMsgBean);
+        LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+    }
+
+
 
     /**
      * 挂号

@@ -45,7 +45,14 @@ public class SickController extends BaseController {
             outJSONMsg(response, outMsgBean);
             return;
         }
-        Integer ret = sickService.checkUniqueness(card_no);
+        Object relsut = sickService.checkUniqueness(card_no);
+        if (relsut == null){
+            outMsgBean = new OutMsgBean(-100, "读取信息请求失败");
+            outJSONMsg(response, outMsgBean);
+            return;
+        }
+        //        Integer ret = sickService.checkUniqueness(card_no);
+        Integer ret = (Integer) relsut;
         Map<String, Object> retMap = new HashMap<>();
         retMap.put("is_register", ret);
         outMsgBean = new OutMsgBean(200, "处理完成", retMap);

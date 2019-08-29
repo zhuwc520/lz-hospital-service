@@ -4,6 +4,7 @@ import cn.lz.hospital.bean.sys.OutMsgBean;
 import cn.lz.hospital.controller.common.BaseController;
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
+import cn.lz.hospital.domain.MzPayable;
 import cn.lz.hospital.service.SickService;
 import cn.lz.hospital.utils.ValidateUtil;
 import com.alibaba.fastjson.JSON;
@@ -239,4 +240,36 @@ public class SickController extends BaseController {
         }
 
     }
+
+    /**
+     * 门诊缴费查询
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/getMzPayableList")
+    public void getMzPayableList(HttpServletRequest request, HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        Map<String, Object> paramsMap = new HashMap<>();
+        try{
+            String card_no = getString("card_no", null, paramsMap);
+            List<MzPayable> mzPayableList = sickService.getMzPayableList(card_no);
+
+            if (!ValidateUtil.checkListIsNotEmpty(mzPayableList)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(mzPayableList);
+            outJSONMsg(response, outMsgBean);
+            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+
+        }catch (Exception e){
+            LoggerUtils.error("门诊缴费查询===》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "门诊缴费查询发生异常");
+            outJSONMsg(response, outMsgBean);
+        }
+
+    }
+
+
 }

@@ -51,4 +51,9 @@
     <select id="getGhTypeAllList" resultMap="ghTypeMap" statementType="CALLABLE">
         {call pMobile_GhTypeList}
     </select>
+
+    <!--缴费查询-->
+    <select id="getMzPayableList" resultType="cn.lz.hospital.domain.MzPayable" statementType="CALLABLE">
+        {call pMobile_MzPayableList(#{card_no,model=IN})}
+    </select>
 </mapper>

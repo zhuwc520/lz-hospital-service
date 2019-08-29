@@ -2,6 +2,7 @@ package cn.lz.hospital.service;
 
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
+import cn.lz.hospital.domain.MzPayable;
 
 import java.util.List;
 import java.util.Map;
@@ -61,4 +62,11 @@ public interface SickService {
      * @return
      */
     public List<GhType> getGhTypeAllList();
+
+    /**
+     * 门诊应缴费明细
+     * @param card_no
+     * @return
+     */
+    public List<MzPayable> getMzPayableList(String card_no);
 }

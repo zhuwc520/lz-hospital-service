@@ -3,6 +3,7 @@ package cn.lz.hospital.persistence;
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
 import cn.lz.hospital.domain.KS;
+import cn.lz.hospital.domain.MzPayable;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -66,4 +67,7 @@ public interface SickMapper extends Mapper<KS> {
      * @return
      */
     public List<GhType> getGhTypeAllList();
+
+
+    public List<MzPayable> getMzPayableList(String card_no);
 }

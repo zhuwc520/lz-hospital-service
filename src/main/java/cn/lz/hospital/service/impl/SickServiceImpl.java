@@ -3,6 +3,7 @@ package cn.lz.hospital.service.impl;
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
 import cn.lz.hospital.domain.KS;
+import cn.lz.hospital.domain.MzPayable;
 import cn.lz.hospital.persistence.SickMapper;
 import cn.lz.hospital.service.SickService;
 import cn.lz.hospital.utils.ValidateUtil;
@@ -61,7 +62,7 @@ public class SickServiceImpl implements SickService {
     /**
      *
      * 根据科室编号获取医生列表
-     * @param id 科室编号
+     * @param department_id 科室编号
      * @return
      */
 
@@ -77,7 +78,6 @@ public class SickServiceImpl implements SickService {
      * @param name
      * @param sex
      * @param age
-     * @param ghtype
      * @param doctor_id
      * @param department_id
      * @param card_no
@@ -103,4 +103,11 @@ public class SickServiceImpl implements SickService {
         List<GhType> ghTypeList = sickMapper.getGhTypeAllList();
         return ghTypeList;
     }
+
+    @Override
+    public List<MzPayable> getMzPayableList(String card_no) {
+        List<MzPayable> mzPayableList  = sickMapper.getMzPayableList(card_no);
+        return null;
+    }
+
 }

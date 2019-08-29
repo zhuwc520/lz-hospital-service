@@ -43,19 +43,23 @@ public interface SickMapper extends Mapper<KS> {
      * @param name 姓名
      * @param sex 性别(0=女,1=男)
      * @param age 年龄
-     * @param ghtype 挂号类别编码
+     * @param ghtype_id 挂号类别id
+     * @param id_card 身份证
      * @param doctor_id 医生id
      * @param department_id 科室id
-     * @param card_no 身份证号
+     * @param card_no 卡号
+     *
      * @return
      */
-    public String insertRegistration(@Param("name") String name,
+    public String insertRegistration(            @Param("name") String name,
                                                  @Param("sex") Integer sex,
                                                  @Param("age") Integer age,
-                                                 @Param("ghtype") String ghtype,
-                                                 @Param("doctor_id") String doctor_id,
-                                                 @Param("department_id") String department_id,
-                                                 @Param("card_no") String card_no);
+                                                 @Param("card_no") String card_no,
+                                                 @Param("doctor_id") Integer doctor_id,
+                                                 @Param("department_id") Integer department_id,
+                                                 @Param("ghtype_id") Integer ghtype_id,
+                                                 @Param("id_card") String id_card
+                                                 );
 
     /**
      * 挂号类别查询

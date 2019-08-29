@@ -40,10 +40,11 @@
         exec pMobile_GhInsert #{name,mode=IN,jdbcType=VARCHAR},
         #{sex,jdbcType=INTEGER,mode=IN},
         #{age,jdbcType=INTEGER,mode=IN},
-        #{ghtype,mode=IN,jdbcType=VARCHAR},
-        #{doctor_id,jdbcType=VARCHAR,mode=IN},
-        #{department_id,jdbcType=VARCHAR,mode=IN},
         #{card_no,jdbcType=VARCHAR,mode=IN},
+        #{doctor_id,jdbcType=INTEGER,mode=IN},
+        #{department_id,jdbcType=INTEGER,mode=IN},
+        #{ghtype_id,mode=IN,jdbcType=INTEGER,mode=IN},
+        #{id_card,mode=IN,jdbcType=VARCHAR,mode=IN},
         #{treat_no,mode=OUT,jdbcType=VARCHAR}
     </select>
     <!-- 挂号类别查询-->

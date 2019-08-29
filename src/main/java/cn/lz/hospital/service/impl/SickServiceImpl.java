@@ -85,12 +85,12 @@ public class SickServiceImpl implements SickService {
      */
     @Override
     public Map<String, Object> insertRegistration(String name, Integer sex,
-                                                  Integer age, String ghtype,
-                                                  String doctor_id, String department_id,
-                                                  String card_no) {
+                                                  Integer age, String card_no,
+                                                  Integer doctor_id, Integer department_id,
+                                                  Integer ghtype_id,String id_card) {
         Map<String, Object> retMap = new HashMap<>();
         String treat_no = sickMapper.insertRegistration(name, sex,
-                age, ghtype, doctor_id, department_id, card_no);
+                age, card_no, doctor_id, department_id, ghtype_id,id_card);
         if (ValidateUtil.isEmpty(treat_no)) {
             return null;
         }

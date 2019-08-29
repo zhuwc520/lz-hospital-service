@@ -9,7 +9,6 @@ package cn.lz.hospital.utils;
  * @date 2013-10-17
  */
 public class CommonUtil {
-
 	
 	/**
 	 * 根据内容类型判断文件扩展名

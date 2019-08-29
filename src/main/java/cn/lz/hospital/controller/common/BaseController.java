@@ -1,6 +1,8 @@
 package cn.lz.hospital.controller.common;
 
 import cn.lz.hospital.bean.sys.OutMsgBean;
+import cn.lz.hospital.utils.AESUtil;
+import cn.lz.hospital.utils.StaticConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import jodd.util.StringUtil;
@@ -236,6 +238,17 @@ public class BaseController {
         }
     }
 
+    public String getAESString(String name, String defaultValue, Map<String, Object> paramMap) {
+        String resultStr = getRequest().getParameter(name);
+        if (resultStr == null || "".equals(resultStr) || "null".equals(resultStr) || "undefined".equals(resultStr)) {
+            paramMap.put(name, defaultValue);
+            return defaultValue;
+        } else {
+            paramMap.put(name, AESUtil.Decrypt(resultStr, StaticConfig.AES_KEY));
+            return resultStr;
+        }
+    }
+
     public Integer getInteger(String name, Integer defaultValue, Map<String, Object> paramMap) {
         String resultStr = getRequest().getParameter(name);
         if (resultStr == null || "".equals(resultStr) || "null".equals(resultStr) || "undefined".equals(resultStr)) {
@@ -247,6 +260,17 @@ public class BaseController {
         }
     }
 
+    public Integer getAESInteger(String name, Integer defaultValue, Map<String, Object> paramMap) {
+        String resultStr = getRequest().getParameter(name);
+        if (resultStr == null || "".equals(resultStr) || "null".equals(resultStr) || "undefined".equals(resultStr)) {
+            paramMap.put(name, defaultValue);
+            return defaultValue;
+        } else {
+            paramMap.put(name, Integer.valueOf(AESUtil.Decrypt(resultStr,StaticConfig.AES_KEY)));
+            return Integer.valueOf(resultStr);
+        }
+    }
+
     public Boolean getBoolean(String name, Boolean defaultValue, Map<String, Object> paramMap) {
         String resultStr = getRequest().getParameter(name);
         if (resultStr == null || "".equals(resultStr) || "null".equals(resultStr) || "undefined".equals(resultStr)) {
@@ -254,6 +278,17 @@ public class BaseController {
             return defaultValue;
         } else {
             paramMap.put(name, Boolean.valueOf(resultStr));
+            return Boolean.valueOf(resultStr);
+        }
+    }
+
+    public Boolean getAESBoolean(String name, Boolean defaultValue, Map<String, Object> paramMap) {
+        String resultStr = getRequest().getParameter(name);
+        if (resultStr == null || "".equals(resultStr) || "null".equals(resultStr) || "undefined".equals(resultStr)) {
+            paramMap.put(name, defaultValue);
+            return defaultValue;
+        } else {
+            paramMap.put(name, Boolean.valueOf(AESUtil.Decrypt(resultStr,StaticConfig.AES_KEY)));
             return Boolean.valueOf(resultStr);
         }
     }

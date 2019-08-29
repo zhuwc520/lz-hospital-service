@@ -51,13 +51,10 @@ public interface SickService {
      * @param card_no
      * @return
      */
-    public Map<String,Object> insertRegistration(String name,
-                                     Integer sex,
-                                     Integer age,
-                                     String ghtype,
-                                     String doctor_id,
-                                     String department_id,
-                                     String card_no);
+    public Map<String,Object> insertRegistration(String name, Integer sex,
+                                                 Integer age, String card_no,
+                                                 Integer doctor_id, Integer department_id,
+                                                 Integer ghtype_id,String id_card);
 
     /**
      * 挂号类别查询

@@ -25,7 +25,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .enable(true)
-                .groupName("chagoi-api")
+                .groupName("lz-hospital-service-api")
                 .select()   // 选择那些路径和api会生成document
                 .apis(RequestHandlerSelectors.basePackage("cn.lz.hospital.controller"))
                 .paths(PathSelectors.any())   // 对所有路径进行监控
@@ -34,8 +34,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("茶锂ERP后台管理 API")
-                .termsOfServiceUrl("http://dev-cl-manager.lamic.cn/")
+                .title("HIS API")
+                .termsOfServiceUrl("http://221.210.124.26:8089/")
                 .description("此API提供接口调用")
                 .version("1.0").build();
     }

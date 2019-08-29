@@ -17,7 +17,7 @@ public interface SickMapper extends Mapper<KS> {
      * @param card_no
      * @return
      */
-    public int checkUniqueness(@Param("card_no") String card_no);
+    public Integer checkUniqueness(@Param("card_no") String card_no);
     /**
      * 科室列表查询
      * @param id
@@ -42,12 +42,12 @@ public interface SickMapper extends Mapper<KS> {
      * @param card_no 身份证号
      * @return
      */
-    public Map<String,Object> insertRegistration(@Param("name") String name,
+    public String insertRegistration(@Param("name") String name,
                                                  @Param("sex") Integer sex,
                                                  @Param("age") Integer age,
                                                  @Param("ghtype") String ghtype,
-                                                 @Param("doctor_id") Integer doctor_id,
-                                                 @Param("department_id") Integer department_id,
+                                                 @Param("doctor_id") String doctor_id,
+                                                 @Param("department_id") String department_id,
                                                  @Param("card_no") String card_no);
 
     /**

@@ -45,9 +45,11 @@ public class SickController extends BaseController {
             outJSONMsg(response, outMsgBean);
             return;
         }
-        Integer ret = sickService.checkUniqueness(card_no);
-        Map<String, Object> retMap = new HashMap<>();
-        retMap.put("is_register", ret);
+        Map<String, Object> retMap = sickService.checkUniqueness(card_no);
+        if(!ValidateUtil.checkMapIsNotEmpty(retMap)){
+            retMap = new HashMap<>();
+            retMap.put("is_register",0);
+        }
         outMsgBean = new OutMsgBean(200, "处理完成", retMap);
         LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
         outJSONMsg(response, outMsgBean);
@@ -104,8 +106,8 @@ public class SickController extends BaseController {
         Integer sex = getInteger("sex", 1, paramsMap);
         Integer age = getInteger("age", null, paramsMap);
         String ghtype = getString("ghtype", null, paramsMap);
-        Integer doctor_id = getInteger("doctor_id", null, paramsMap);
-        Integer department_id = getInteger("department_id", null, paramsMap);
+        String doctor_id = getString("doctor_id", null, paramsMap);
+        String department_id = getString("department_id", null, paramsMap);
         String card_no = getString("card_no", null, paramsMap);
         LoggerUtils.info("接口[{}]，请求参数:", request.getRequestURI(), JSON.toJSONString(paramsMap));
         if (ValidateUtil.isEmpty(name) || ValidateUtil.isEmpty(sex)

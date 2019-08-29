@@ -20,25 +20,26 @@
         {call pMobile_KsList }
     </select>
     <!-- •	就诊人card_no唯一性验证 -->
-    <select id="checkUniqueness" resultType="java.lang.Integer" statementType="CALLABLE" parameterType="java.lang.String">
-        {call pMobile_CardVerification(#{card_no,mode=IN})}
+    <select id="checkUniqueness" resultType="java.lang.Integer" statementType="CALLABLE"
+            parameterType="java.lang.String">
+        declare @result int
+        exec @result = pMobile_CardVerification #{card_no}
+        select @result
     </select>
     <!--医生列表 -->
     <select id="getDoctorAllList" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE">
         {call pMobile_YsList}
     </select>
     <!-- 挂号-->
-    <select id="insertRegistration" resultMap="treatNoMap" statementType="CALLABLE">
-     {call pMobile_GhInsert(
-            #{name,mode=IN},
-            #{sex,mode=IN},
-            #{age,mode=IN},
-            #{ghtype,mode=IN},
-            #{doctor_id,mode=IN},
-            #{department_id,mode=IN},
-            #{card_no,mode=IN},
-            #{treat_no,mode=OUT}
-     )}
+    <select id="insertRegistration" resultType="java.lang.String" statementType="CALLABLE">
+        exec pMobile_GhInsert #{name,mode=IN,jdbcType=VARCHAR},
+        #{sex,jdbcType=INTEGER,mode=IN},
+        #{age,jdbcType=INTEGER,mode=IN},
+        #{ghtype,mode=IN,jdbcType=VARCHAR},
+        #{doctor_id,jdbcType=VARCHAR,mode=IN},
+        #{department_id,jdbcType=VARCHAR,mode=IN},
+        #{card_no,jdbcType=VARCHAR,mode=IN},
+        #{treat_no,mode=OUT,jdbcType=VARCHAR}
     </select>
     <!-- 挂号类别查询-->
     <select id="getGhTypeAllList" resultMap="ghTypeMap" statementType="CALLABLE">

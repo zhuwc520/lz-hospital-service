@@ -20,29 +20,35 @@ public class SickServiceImpl implements SickService {
 
     /**
      * 就诊人card_no唯一性验证
+     *
      * @param card_no
      * @return
      */
     @Override
-    public int checkUniqueness(String card_no) {
-        return  sickMapper.checkUniqueness(card_no);
+    public Map<String, Object> checkUniqueness(String card_no) {
+        Map<String, Object> retMap = new HashMap<>();
+        Integer is_register = sickMapper.checkUniqueness(card_no);
+        retMap.put("is_register", is_register);
+        return retMap;
     }
 
     /**
      * 科室列表
+     *
      * @param id
      * @return
      */
     @Override
     public Map<String, Object> getAllById(Integer id) {
-        List<KS> ksList =sickMapper.getAllById(id);
-        Map<String,Object> retMap = new HashMap<>();
-        retMap.put("p_department",ksList);
+        List<KS> ksList = sickMapper.getAllById(id);
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("p_department", ksList);
         return retMap;
     }
 
     /**
      * 医生列表
+     *
      * @return
      */
     @Override
@@ -53,6 +59,7 @@ public class SickServiceImpl implements SickService {
 
     /**
      * 挂号
+     *
      * @param name
      * @param sex
      * @param age
@@ -63,16 +70,18 @@ public class SickServiceImpl implements SickService {
      * @return
      */
     @Override
-    public Map<String,Object> insertRegistration(String name, Integer sex,
-                                     Integer age, String ghtype,
-                                     Integer doctor_id, Integer department_id,
-                                     String card_no) {
-        Map<String,Object> retMap = sickMapper.insertRegistration(name,sex,
-                age,ghtype,doctor_id,department_id,card_no);
-        if(ValidateUtil.checkMapIsNotEmpty(retMap)){
-            return retMap;
+    public Map<String, Object> insertRegistration(String name, Integer sex,
+                                                  Integer age, String ghtype,
+                                                  String doctor_id, String department_id,
+                                                  String card_no) {
+        Map<String, Object> retMap = new HashMap<>();
+        String treat_no = sickMapper.insertRegistration(name, sex,
+                age, ghtype, doctor_id, department_id, card_no);
+        if (ValidateUtil.isEmpty(treat_no)) {
+            return null;
         }
-        return null;
+        retMap.put("treat_no", treat_no);
+        return retMap;
     }
 
     @Override

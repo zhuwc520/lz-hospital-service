@@ -16,7 +16,7 @@ public interface SickService {
      * @param card_no
      * @return
      */
-    public int checkUniqueness(String card_no);
+    public Map<String,Object> checkUniqueness(String card_no);
 
     /**
      * 科室列表
@@ -48,8 +48,8 @@ public interface SickService {
                                      Integer sex,
                                      Integer age,
                                      String ghtype,
-                                     Integer doctor_id,
-                                     Integer department_id,
+                                     String doctor_id,
+                                     String department_id,
                                      String card_no);
 
     /**

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 public class Doctor implements Serializable {
     /**
-     * 医生主键id
+     * 医生主键ID
      */
     private Integer id;
     /**

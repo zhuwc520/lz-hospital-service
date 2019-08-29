@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public class GhType implements Serializable {
     /**
-     * 类别编码
+     * 类别编码HAO
      */
     private String reg_bm;
     /**

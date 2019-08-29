@@ -34,6 +34,13 @@ public interface SickService {
     public List<Doctor> getDoctorAllList();
 
     /**
+     * 根据科室id 获取医生列表
+     * @param department_id
+     * @return
+     */
+    public List<Doctor> getDoctorById(Integer department_id);
+
+    /**
      * 挂号
      * @param name
      * @param sex

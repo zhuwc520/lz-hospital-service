@@ -45,11 +45,16 @@ public class SickController extends BaseController {
             outJSONMsg(response, outMsgBean);
             return;
         }
-        Map<String, Object> retMap = sickService.checkUniqueness(card_no);
-        if(!ValidateUtil.checkMapIsNotEmpty(retMap)){
-            retMap = new HashMap<>();
-            retMap.put("is_register",0);
+        Object relsut = sickService.checkUniqueness(card_no);
+        if (relsut == null){
+            outMsgBean = new OutMsgBean(-100, "读取信息请求失败");
+            outJSONMsg(response, outMsgBean);
+            return;
         }
+        //        Integer ret = sickService.checkUniqueness(card_no);
+        Integer ret = (Integer) relsut;
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("is_register", ret);
         outMsgBean = new OutMsgBean(200, "处理完成", retMap);
         LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
         outJSONMsg(response, outMsgBean);
@@ -72,6 +77,7 @@ public class SickController extends BaseController {
         LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
     }
 
+
     /**
      * 医生列表
      *
@@ -93,6 +99,28 @@ public class SickController extends BaseController {
     }
 
     /**
+     * 根据科室id查找医生
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/getDoctorListByid")
+    public void getDoctorListByid(int department_id,HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        List<Doctor> doctorList = sickService.getDoctorById(department_id);
+        if (!ValidateUtil.checkListIsNotEmpty(doctorList)) {
+            outMsgBean = new OutMsgBean(-100, "查无数据");
+            outJSONMsg(response, outMsgBean);
+            return;
+        }
+        outMsgBean = new OutMsgBean(doctorList);
+        outJSONMsg(response, outMsgBean);
+        LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+    }
+
+
+
+    /**
      * 挂号
      *
      * @param request
@@ -106,8 +134,8 @@ public class SickController extends BaseController {
         Integer sex = getInteger("sex", 1, paramsMap);
         Integer age = getInteger("age", null, paramsMap);
         String ghtype = getString("ghtype", null, paramsMap);
-        String doctor_id = getString("doctor_id", null, paramsMap);
-        String department_id = getString("department_id", null, paramsMap);
+        Integer doctor_id = getInteger("doctor_id", null, paramsMap);
+        Integer department_id = getInteger("department_id", null, paramsMap);
         String card_no = getString("card_no", null, paramsMap);
         LoggerUtils.info("接口[{}]，请求参数:", request.getRequestURI(), JSON.toJSONString(paramsMap));
         if (ValidateUtil.isEmpty(name) || ValidateUtil.isEmpty(sex)

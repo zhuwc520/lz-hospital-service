@@ -32,6 +32,13 @@ public interface SickMapper extends Mapper<KS> {
     public List<Doctor> getDoctorAllList();
 
     /**
+     * 查询医生列表by id
+     * @param id
+     * @return
+     */
+    public List<Doctor> getDoctorById(@Param("department_id") Integer id);
+
+    /**
      * 挂号
      * @param name 姓名
      * @param sex 性别(0=女,1=男)

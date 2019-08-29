@@ -30,6 +30,11 @@
     <select id="getDoctorAllList" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE">
         {call pMobile_YsList}
     </select>
+
+    <select id="getDoctorById" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE" parameterType="java.lang.Integer">
+        {call pMobile_YsList(#{department_id,mode=IN})}
+    </select>
+
     <!-- 挂号-->
     <select id="insertRegistration" resultType="java.lang.String" statementType="CALLABLE">
         exec pMobile_GhInsert #{name,mode=IN,jdbcType=VARCHAR},

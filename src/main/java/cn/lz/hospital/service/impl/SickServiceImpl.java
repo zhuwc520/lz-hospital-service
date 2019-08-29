@@ -9,6 +9,7 @@ import cn.lz.hospital.utils.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,19 @@ public class SickServiceImpl implements SickService {
     public List<Doctor> getDoctorAllList() {
         List<Doctor> doctorList = sickMapper.getDoctorAllList();
         return doctorList;
+    }
+
+    /**
+     *
+     * 根据科室编号获取医生列表
+     * @param id 科室编号
+     * @return
+     */
+
+    @Override
+    public List<Doctor> getDoctorById(Integer department_id) {
+        List<Doctor> doctors = sickMapper.getDoctorById(department_id);
+        return doctors;
     }
 
     /**

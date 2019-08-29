@@ -107,7 +107,7 @@ public class SickServiceImpl implements SickService {
     @Override
     public List<MzPayable> getMzPayableList(String card_no) {
         List<MzPayable> mzPayableList  = sickMapper.getMzPayableList(card_no);
-        return null;
+        return mzPayableList;
     }
 
 }

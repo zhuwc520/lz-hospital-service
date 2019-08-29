@@ -54,6 +54,6 @@
 
     <!--缴费查询-->
     <select id="getMzPayableList" resultType="cn.lz.hospital.domain.MzPayable" statementType="CALLABLE">
-        {call pMobile_MzPayableList(#{card_no,model=IN})}
+        {call pMobile_MzPayableList(#{card_no,mode=IN})}
     </select>
 </mapper>

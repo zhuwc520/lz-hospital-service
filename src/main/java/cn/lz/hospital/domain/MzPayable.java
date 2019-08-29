@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class MzPayable {
     private BigDecimal Bm;
 
-    private BigDecimal Xm;
+    private String Xm;
 
     private BigDecimal Total;
 
@@ -20,11 +20,11 @@ public class MzPayable {
         Bm = bm;
     }
 
-    public BigDecimal getXm() {
+    public String getXm() {
         return Xm;
     }
 
-    public void setXm(BigDecimal xm) {
+    public void setXm(String xm) {
         Xm = xm;
     }
 

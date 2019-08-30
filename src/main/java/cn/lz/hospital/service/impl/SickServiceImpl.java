@@ -1,9 +1,6 @@
 package cn.lz.hospital.service.impl;
 
-import cn.lz.hospital.domain.Doctor;
-import cn.lz.hospital.domain.GhType;
-import cn.lz.hospital.domain.KS;
-import cn.lz.hospital.domain.MzPayable;
+import cn.lz.hospital.domain.*;
 import cn.lz.hospital.persistence.SickMapper;
 import cn.lz.hospital.service.SickService;
 import cn.lz.hospital.utils.ValidateUtil;
@@ -11,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,4 +108,31 @@ public class SickServiceImpl implements SickService {
         return mzPayableList;
     }
 
+    @Override
+    public List<ZyPayable> getZyPayable(String card_no) {
+        List<ZyPayable> zyPayables = sickMapper.getZyPayable(card_no);
+        return zyPayables;
+    }
+
+    /**
+     * 住院缴费
+     * @param zyBm
+     * @param total
+     * @return
+     */
+    @Override
+    public Integer insertZyPay(String zyBm, BigDecimal total) {
+        return sickMapper.insertZyPay(zyBm,total);
+    }
+
+    /**
+     * 住院预交费
+     * @param card_no
+     * @param total
+     * @return
+     */
+    @Override
+    public Integer insertZyPrePay(String card_no, BigDecimal total) {
+        return sickMapper.insertZyPrePay(card_no,total);
+    }
 }

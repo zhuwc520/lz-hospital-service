@@ -15,6 +15,25 @@
         <result column="reg_name" jdbcType="VARCHAR" property="reg_name"/>
         <result column="reg_money" jdbcType="VARCHAR" property="reg_money"/>
     </resultMap>
+
+    <resultMap id="zyPayAbleMap" type="cn.lz.hospital.domain.ZyPayable">
+        <result column="zy_bm" jdbcType="VARCHAR" property="zy_bm"/>
+        <result column="Xm" jdbcType="VARCHAR" property="xm"/>
+        <result column="Total" jdbcType="NUMERIC" property="total"/>
+    </resultMap>
+
+    <resultMap id="mzPayAbleMap" type="cn.lz.hospital.domain.MzPayable">
+        <result column="Bm" jdbcType="NUMERIC" property="bm"/>
+        <result column="Xm" jdbcType="VARCHAR" property="xm"/>
+        <result column="Total" jdbcType="NUMERIC" property="total"/>
+    </resultMap>
+
+    <resultMap id="zyPayAbleMap" type="cn.lz.hospital.domain.ZyPayable">
+        <result column="zy_bm" jdbcType="VARCHAR" property="zy_bm"/>
+        <result column="Xm" jdbcType="VARCHAR" property="xm"/>
+        <result column="Total" jdbcType="NUMERIC" property="total"/>
+    </resultMap>
+
     <!--科室列表查询-->
     <select id="getAllById" resultMap="ksList" statementType="CALLABLE" parameterType="java.lang.Integer">
         {call pMobile_KsList }
@@ -52,8 +71,25 @@
         {call pMobile_GhTypeList}
     </select>
 
-    <!--缴费查询-->
-    <select id="getMzPayableList" resultType="cn.lz.hospital.domain.MzPayable" statementType="CALLABLE">
+    <!--门诊缴费查询-->
+    <select id="getMzPayableList" resultType="mzPayAbleMap" statementType="CALLABLE">
         {call pMobile_MzPayableList(#{card_no,mode=IN})}
     </select>
+
+    <!--住院缴费查询-->
+    <select id="getZyPayable" resultType="zyPayAbleMap" statementType="CALLABLE">
+        {call pMobile_ZyPayable(#{card_no,mode=IN})}
+    </select>
+
+    <!--住院缴费-->
+    <select id="insertZyPay" resultType="java.lang.Integer" statementType="CALLABLE">
+        {call pMobile_ZyPayable(#{ZyBm,mode=IN},#{Total,mode=IN})}
+    </select>
+
+    <!--住院预缴费-->
+    <select id="insertZyPrePay" resultType="java.lang.Integer" statementType="CALLABLE">
+        {call pMobile_ZyPayable(#{card_no,mode=IN},#{Total,mode=IN})}
+    </select>
+
+
 </mapper>

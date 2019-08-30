@@ -5,6 +5,7 @@ import cn.lz.hospital.controller.common.BaseController;
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
 import cn.lz.hospital.domain.MzPayable;
+import cn.lz.hospital.domain.ZyPayable;
 import cn.lz.hospital.service.SickService;
 import cn.lz.hospital.utils.ValidateUtil;
 import com.alibaba.fastjson.JSON;
@@ -20,6 +21,7 @@ import win.hupubao.common.utils.LoggerUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -268,8 +270,114 @@ public class SickController extends BaseController {
             outMsgBean = new OutMsgBean(-100, "门诊缴费查询发生异常");
             outJSONMsg(response, outMsgBean);
         }
-
     }
 
+
+    /**
+     * 住院缴费查询
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/getZyPayableList")
+    public void getZyPayableList(HttpServletRequest request, HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        Map<String, Object> paramsMap = new HashMap<>();
+        try{
+            String card_no = getString("card_no", null, paramsMap);
+            List<ZyPayable> zyPayables = sickService.getZyPayable(card_no);
+
+            if (!ValidateUtil.checkListIsNotEmpty(zyPayables)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(zyPayables);
+            outJSONMsg(response, outMsgBean);
+            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+
+        }catch (Exception e){
+            LoggerUtils.error("住院缴费查询===》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院缴费查询发生异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+
+    /**
+     * 住院缴费
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/insertZyPay")
+    public void insertZyPay(HttpServletRequest request, HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        Map<String, Object> paramsMap = new HashMap<>();
+        try{
+            String zyBm = getString("zyBm", null, paramsMap);
+            String total = getString("total","0.00",paramsMap);
+            BigDecimal totalBig = new BigDecimal(total);
+            Integer result = sickService.insertZyPay(zyBm,totalBig);
+            if (result == null){
+                outMsgBean = new OutMsgBean(-100, "缴费异常");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            if (result == 2){
+                outMsgBean = new OutMsgBean(-100, "金额不符");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            if (result == -1){
+                outMsgBean = new OutMsgBean(-100, "缴费失败");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
+            outMsgBean = new OutMsgBean(result);
+            outJSONMsg(response, outMsgBean);
+            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+
+        }catch (Exception e){
+            LoggerUtils.error("住院缴费===》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院缴费发生异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    /**
+     * 住院预缴费
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/insertZyPrePay")
+    public void insertZyPrePay(HttpServletRequest request, HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        Map<String, Object> paramsMap = new HashMap<>();
+        try{
+            String card_no = getString("card_no", null, paramsMap);
+            String total = getString("total","0.00",paramsMap);
+            BigDecimal totalBig = new BigDecimal(total);
+            Integer result = sickService.insertZyPrePay(card_no,totalBig);
+            if (result == null){
+                outMsgBean = new OutMsgBean(-100, "缴费异常");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            if (result == -1){
+                outMsgBean = new OutMsgBean(-100, "缴费失败");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
+            outMsgBean = new OutMsgBean(result);
+            outJSONMsg(response, outMsgBean);
+            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+
+        }catch (Exception e){
+            LoggerUtils.error("住院缴费===》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院缴费发生异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
 
 }

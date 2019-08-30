@@ -1,13 +1,11 @@
 package cn.lz.hospital.persistence;
 
-import cn.lz.hospital.domain.Doctor;
-import cn.lz.hospital.domain.GhType;
-import cn.lz.hospital.domain.KS;
-import cn.lz.hospital.domain.MzPayable;
+import cn.lz.hospital.domain.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -69,5 +67,38 @@ public interface SickMapper extends Mapper<KS> {
     public List<GhType> getGhTypeAllList();
 
 
-    public List<MzPayable> getMzPayableList(String card_no);
+    /**
+     * 门诊应缴费明细
+     * @param card_no
+     * @return
+     */
+    public List<MzPayable> getMzPayableList(@Param("card_no") String card_no);
+
+    /**
+     * 住院缴费查询
+     * @param card_no
+     * @return
+     */
+    public List<ZyPayable> getZyPayable(@Param("card_no") String card_no);
+
+
+    /**
+     * 住院缴费
+     * @param zyBm
+     * @param total
+     * @return
+     */
+    public Integer insertZyPay(@Param("ZyBm")String zyBm, @Param("Total")BigDecimal total);
+
+    /**
+     * 住院预交费
+     * @param card_no
+     * @param total
+     * @return
+     */
+    public Integer insertZyPrePay(@Param("card_no")String card_no, @Param("Total")BigDecimal total);
+
+
+
+
 }

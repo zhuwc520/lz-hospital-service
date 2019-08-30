@@ -2,22 +2,22 @@ package cn.lz.hospital.domain;
 
 import java.math.BigDecimal;
 
-/**
- * 缴费明细实体对象
- */
-public class MzPayable {
-    private BigDecimal bm;
+public class ZyPayable {
 
+    //住院编码
+    private String zy_bm;
+
+    //项目名称
     private String xm;
 
+    //总金额
     private BigDecimal total;
 
-    public BigDecimal getBm() {
-        return bm;
+    public String getZy_bm() {
+        return zy_bm;
     }
-
-    public void setBm(BigDecimal bm) {
-        this.bm = bm;
+    public void setZy_bm(String zy_bm) {
+        this.zy_bm = zy_bm;
     }
 
     public String getXm() {

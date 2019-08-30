@@ -3,7 +3,9 @@ package cn.lz.hospital.service;
 import cn.lz.hospital.domain.Doctor;
 import cn.lz.hospital.domain.GhType;
 import cn.lz.hospital.domain.MzPayable;
+import cn.lz.hospital.domain.ZyPayable;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -69,4 +71,31 @@ public interface SickService {
      * @return
      */
     public List<MzPayable> getMzPayableList(String card_no);
+
+    /**
+     * 住院缴费明细
+     * @param card_no
+     * @return
+     */
+    public List<ZyPayable> getZyPayable(String card_no);
+
+
+
+    /**
+     * 住院缴费
+     * @param zyBm
+     * @param total
+     * @return
+     */
+    public Integer insertZyPay(String zyBm, BigDecimal total);
+
+    /**
+     * 住院预交费
+     * @param card_no
+     * @param total
+     * @return
+     */
+    public Integer insertZyPrePay(String card_no, BigDecimal total);
+
+
 }

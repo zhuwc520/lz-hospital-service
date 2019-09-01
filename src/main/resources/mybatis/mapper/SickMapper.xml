@@ -28,11 +28,6 @@
         <result column="Total" jdbcType="NUMERIC" property="total"/>
     </resultMap>
 
-    <resultMap id="zyPayAbleMap" type="cn.lz.hospital.domain.ZyPayable">
-        <result column="zy_bm" jdbcType="VARCHAR" property="zy_bm"/>
-        <result column="Xm" jdbcType="VARCHAR" property="xm"/>
-        <result column="Total" jdbcType="NUMERIC" property="total"/>
-    </resultMap>
 
     <!--科室列表查询-->
     <select id="getAllById" resultMap="ksList" statementType="CALLABLE" parameterType="java.lang.Integer">
@@ -72,12 +67,12 @@
     </select>
 
     <!--门诊缴费查询-->
-    <select id="getMzPayableList" resultType="mzPayAbleMap" statementType="CALLABLE">
+    <select id="getMzPayableList" resultMap="mzPayAbleMap" statementType="CALLABLE">
         {call pMobile_MzPayableList(#{card_no,mode=IN})}
     </select>
 
     <!--住院缴费查询-->
-    <select id="getZyPayable" resultType="zyPayAbleMap" statementType="CALLABLE">
+    <select id="getZyPayable" resultMap="zyPayAbleMap" statementType="CALLABLE">
         {call pMobile_ZyPayable(#{card_no,mode=IN})}
     </select>
 

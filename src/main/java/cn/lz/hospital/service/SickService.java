@@ -1,9 +1,6 @@
 package cn.lz.hospital.service;
 
-import cn.lz.hospital.domain.Doctor;
-import cn.lz.hospital.domain.GhType;
-import cn.lz.hospital.domain.MzPayable;
-import cn.lz.hospital.domain.ZyPayable;
+import cn.lz.hospital.domain.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -97,5 +94,33 @@ public interface SickService {
      */
     public Integer insertZyPrePay(String card_no, BigDecimal total);
 
+    /**
+     * 化验报告明细
+     * @param tmh
+     * @return
+     */
+    public List<HyBgDetail> hyBgDetail(String tmh);
 
+    /**
+     * 患者门诊缴费
+     * @param card_no
+     * @param total
+     * @return
+     */
+    public Integer insertMzPay(String card_no,BigDecimal total);
+
+    /**
+     * 检查化验报告表头
+     * @param tmh
+     * @param type
+     * @return
+     */
+    public JchyBgInfo jchyBgInfo(String tmh,String type);
+
+    /**
+     * 检查化验报告列表
+     * @param card_no
+     * @return
+     */
+    public List<JchyBgList> jchyBgList(String card_no);
 }

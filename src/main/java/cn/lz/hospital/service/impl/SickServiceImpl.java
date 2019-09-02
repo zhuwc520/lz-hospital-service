@@ -135,4 +135,25 @@ public class SickServiceImpl implements SickService {
     public Integer insertZyPrePay(String card_no, BigDecimal total) {
         return sickMapper.insertZyPrePay(card_no,total);
     }
+
+    @Override
+    public List<HyBgDetail> hyBgDetail(String tmh) {
+        return sickMapper.hyBgDetail(tmh);
+    }
+
+    @Override
+    public Integer insertMzPay(String card_no, BigDecimal total) {
+        return sickMapper.insertMzPay(card_no,total);
+    }
+
+    @Override
+    public JchyBgInfo jchyBgInfo(String tmh, String type) {
+
+        return sickMapper.jchyBgInfo(tmh,type);
+    }
+
+    @Override
+    public List<JchyBgList> jchyBgList(String card_no) {
+        return sickMapper.jchyBgList(card_no);
+    }
 }

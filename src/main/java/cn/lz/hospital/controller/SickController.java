@@ -103,32 +103,32 @@ public class SickController extends BaseController {
     }
 
 
-    /**
-     * 医生列表
-     *
-     * @param request
-     * @param response
-     */
-    @RequestMapping("/getDoctorList")
-    public void getDoctorList(HttpServletRequest request, HttpServletResponse response) {
-        OutMsgBean outMsgBean = null;
-        try {
-            List<Doctor> doctorList = sickService.getDoctorAllList();
-            if (!ValidateUtil.checkListIsNotEmpty(doctorList)) {
-                outMsgBean = new OutMsgBean(-100, "查无数据");
-                outJSONMsg(response, outMsgBean);
-                return;
-            }
-            outMsgBean = new OutMsgBean(doctorList);
-            outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
-        } catch (Exception e) {
-            LoggerUtils.error("医生列表查询异常===》{}", e.getMessage());
-            outMsgBean = new OutMsgBean(-100, "医生查询列表发生异常");
-            outJSONMsg(response, outMsgBean);
-        }
-
-    }
+//    /**
+//     * 医生列表
+//     *
+//     * @param request
+//     * @param response
+//     */
+//    @RequestMapping("/getDoctorList")
+//    public void getDoctorList(HttpServletRequest request, HttpServletResponse response) {
+//        OutMsgBean outMsgBean = null;
+//        try {
+//            List<Doctor> doctorList = sickService.getDoctorAllList();
+//            if (!ValidateUtil.checkListIsNotEmpty(doctorList)) {
+//                outMsgBean = new OutMsgBean(-100, "查无数据");
+//                outJSONMsg(response, outMsgBean);
+//                return;
+//            }
+//            outMsgBean = new OutMsgBean(doctorList);
+//            outJSONMsg(response, outMsgBean);
+//            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+//        } catch (Exception e) {
+//            LoggerUtils.error("医生列表查询异常===》{}", e.getMessage());
+//            outMsgBean = new OutMsgBean(-100, "医生查询列表发生异常");
+//            outJSONMsg(response, outMsgBean);
+//        }
+//
+//    }
 
     /**
      * 根据科室id查找医生
@@ -222,7 +222,9 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
+
     @RequestMapping("/getGhTypeList")
+    @ApiOperation(httpMethod = "POST", value = "挂号列表查询", produces = MediaType.APPLICATION_JSON_VALUE)
     public void getGhTypeList(HttpServletRequest request, HttpServletResponse response) {
         OutMsgBean outMsgBean = null;
         try {
@@ -249,6 +251,8 @@ public class SickController extends BaseController {
      * @param response
      */
     @RequestMapping("/getMzPayableList")
+    @ApiOperation(httpMethod = "POST", value = "门诊缴费查询", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "card_no",value = "就诊卡号",required = true,dataType = "string",paramType = "form")
     public void getMzPayableList(HttpServletRequest request, HttpServletResponse response){
         OutMsgBean outMsgBean = null;
         Map<String, Object> paramsMap = new HashMap<>();
@@ -279,6 +283,8 @@ public class SickController extends BaseController {
      * @param response
      */
     @RequestMapping("/getZyPayableList")
+    @ApiOperation(httpMethod = "POST", value = "住院缴费查询", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "card_no",value = "就诊卡号",required = true,dataType = "string",paramType = "form")
     public void getZyPayableList(HttpServletRequest request, HttpServletResponse response){
         OutMsgBean outMsgBean = null;
         Map<String, Object> paramsMap = new HashMap<>();
@@ -309,6 +315,12 @@ public class SickController extends BaseController {
      * @param response
      */
     @RequestMapping("/insertZyPay")
+    @ApiOperation(httpMethod = "POST", value = "住院缴费", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "zyBm", value = "住院编号", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "total", value = "总金额", required = true, dataType = "string", paramType = "form")
+    }
+    )
     public void insertZyPay(HttpServletRequest request, HttpServletResponse response){
         OutMsgBean outMsgBean = null;
         Map<String, Object> paramsMap = new HashMap<>();
@@ -345,11 +357,18 @@ public class SickController extends BaseController {
     }
 
     /**
-     * 住院预缴费
+     * 预存交费
      * @param request
      * @param response
      */
     @RequestMapping("/insertZyPrePay")
+    @ApiOperation(httpMethod = "POST", value = "预存交费", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+
+            @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "total", value = "总金额", required = true, dataType = "string", paramType = "form")
+    }
+    )
     public void insertZyPrePay(HttpServletRequest request, HttpServletResponse response){
         OutMsgBean outMsgBean = null;
         Map<String, Object> paramsMap = new HashMap<>();
@@ -379,5 +398,4 @@ public class SickController extends BaseController {
             outJSONMsg(response, outMsgBean);
         }
     }
-
 }

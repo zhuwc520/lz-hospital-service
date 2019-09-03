@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import win.hupubao.common.utils.LoggerUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/checkUniqueness")
+    @RequestMapping(value = "/checkUniqueness")
     @ApiOperation(httpMethod = "POST", value = "就诊人card_no唯一性验证", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form")
     public void checkUniqueness(HttpServletRequest request,
@@ -79,7 +80,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/getKsList")
+    @RequestMapping(value = "/getKsList")
     @ApiOperation(httpMethod = "POST", value = "科室列表", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "id", value = "科室id", required = true, dataType = "int", paramType = "form")
     public void getKsList(HttpServletRequest request, HttpServletResponse response) {
@@ -134,7 +135,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/getDoctorListByid")
+    @RequestMapping(value = "/getDoctorListByid")
     @ApiOperation(httpMethod = "POST", value = "根据科室id查找医生", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "department_id", value = "科室id", required = true, dataType = "int", paramType = "form")
     public void getDoctorListByid(int department_id, HttpServletRequest request, HttpServletResponse response) {
@@ -164,7 +165,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/ghInsert")
+    @RequestMapping(value = "/ghInsert")
     @ApiOperation(httpMethod = "POST", value = "挂号", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "string", paramType = "form"),
@@ -221,7 +222,7 @@ public class SickController extends BaseController {
      * @param response
      */
 
-    @RequestMapping("/getGhTypeList")
+    @RequestMapping(value = "/getGhTypeList")
     @ApiOperation(httpMethod = "POST", value = "挂号列表查询", produces = MediaType.APPLICATION_JSON_VALUE)
     public void getGhTypeList(HttpServletRequest request, HttpServletResponse response) {
         OutMsgBean outMsgBean = null;
@@ -249,7 +250,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/getMzPayableList")
+    @RequestMapping(value = "/getMzPayableList")
     @ApiOperation(httpMethod = "POST", value = "门诊缴费查询", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form")
     public void getMzPayableList(HttpServletRequest request, HttpServletResponse response) {
@@ -282,7 +283,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/getZyPayableList")
+    @RequestMapping(value = "/getZyPayableList")
     @ApiOperation(httpMethod = "POST", value = "住院缴费查询", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form")
     public void getZyPayableList(HttpServletRequest request, HttpServletResponse response) {
@@ -315,7 +316,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/insertZyPay")
+    @RequestMapping(value = "/insertZyPay")
     @ApiOperation(httpMethod = "POST", value = "住院缴费", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "zyBm", value = "住院编号", required = true, dataType = "string", paramType = "form"),
@@ -363,7 +364,7 @@ public class SickController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/insertZyPrePay")
+    @RequestMapping(value = "/insertZyPrePay")
     @ApiOperation(httpMethod = "POST", value = "住院预存交费", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
 
@@ -401,7 +402,7 @@ public class SickController extends BaseController {
         }
     }
 
-    @RequestMapping("/hyBgDetail")
+    @RequestMapping(value = "/hyBgDetail")
     @ApiOperation(httpMethod = "POST", value = "化验报告明细", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "tmh", value = "条码号", required = true, dataType = "string", paramType = "form")
     public void hyBgDetail(HttpServletRequest request,
@@ -433,7 +434,7 @@ public class SickController extends BaseController {
         }
     }
 
-    @RequestMapping("/insertMzPay")
+    @RequestMapping(value = "/insertMzPay")
     @ApiOperation(httpMethod = "POST", value = "患者门诊缴费", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "card_no", value = "患者身份证号", required = true, dataType = "string", paramType = "form"),
@@ -477,7 +478,7 @@ public class SickController extends BaseController {
         }
     }
 
-    @RequestMapping("/jchyBgInfo")
+    @RequestMapping(value = "/jchyBgInfo")
     @ApiOperation(httpMethod = "POST", value = "检查化验报告表头", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tmh", value = "条码号", required = true, dataType = "string", paramType = "form"),
@@ -511,7 +512,7 @@ public class SickController extends BaseController {
         }
     }
 
-    @RequestMapping("/jchyBgList")
+    @RequestMapping(value = "/jchyBgList")
     @ApiOperation(httpMethod = "POST", value = "检查化验报告列表", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParam(name = "card_no", value = "患者身份证号", required = true, dataType = "string", paramType = "form")
     public void jchyBgList(HttpServletRequest request, HttpServletResponse response) {

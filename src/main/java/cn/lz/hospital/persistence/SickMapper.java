@@ -100,10 +100,10 @@ public interface SickMapper extends Mapper<KS> {
 
     /**
      * 化验报告明细
-     * @param szTmh
+     * @param tmh
      * @return
      */
-    public List<HyBgDetail> hyBgDetail(@Param("szTmh") String szTmh);
+    public List<HyBgDetail> hyBgDetail(@Param("tmh") String tmh);
 
     /**
      * 患者门诊缴费
@@ -115,11 +115,11 @@ public interface SickMapper extends Mapper<KS> {
 
     /**
      * 检查化验报告表头
-     * @param sztmh
-     * @param sztype
+     * @param tmh
+     * @param type
      * @return
      */
-    public List<JchyBgInfo> jchyBgInfo(@Param("sztmh") String sztmh,@Param("sztype") String sztype);
+    public List<JchyBgInfo> jchyBgInfo(@Param("tmh") String tmh,@Param("type") String type);
 
     /**
      * 检查报告列表

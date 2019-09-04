@@ -87,7 +87,7 @@
     </select>
 
     <select id="hyBgDetail" resultType="cn.lz.hospital.domain.HyBgDetail" statementType="CALLABLE">
-        {call pMobile_HyBgDetail(#{szTmh,mode=IN})}
+        {call pMobile_HyBgDetail(#{tmh,mode=IN})}
     </select>
     <select id="insertMzPay" resultType="java.lang.Integer" statementType="CALLABLE">
         declare @result int
@@ -96,7 +96,7 @@
     </select>
 
     <select id="jchyBgInfo" resultType="cn.lz.hospital.domain.JchyBgInfo" statementType="CALLABLE">
-        {call pMobile_JchyBgInfo(#{sztmh,mode=IN},#{sztype,mode=IN})}
+        {call pMobile_JchyBgInfo(#{tmh,mode=IN},#{type,mode=IN})}
     </select>
     <select id="jchyBgList" resultType="cn.lz.hospital.domain.JchyBgList" statementType="CALLABLE">
         {call pMobile_JchyBgList(#{card_no,mode=IN})}

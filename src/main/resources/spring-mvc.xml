@@ -99,7 +99,7 @@
             <value>4096</value>
         </property>
     </bean>
-    
+
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>

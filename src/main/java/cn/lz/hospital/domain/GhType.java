@@ -7,38 +7,38 @@ public class GhType implements Serializable {
     /**
      * 类别编码HAO
      */
-    private String reg_bm;
+    private String id;
     /**
      * 类别名称
      */
-    private String reg_name;
+    private String name;
     /**
      * 类别金额
      */
-    private BigDecimal reg_money;
+    private BigDecimal price;
 
-    public String getReg_bm() {
-        return reg_bm;
+    public String getId() {
+        return id;
     }
 
-    public void setReg_bm(String reg_bm) {
-        this.reg_bm = reg_bm;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getReg_name() {
-        return reg_name;
+    public String getName() {
+        return name;
     }
 
-    public void setReg_name(String reg_name) {
-        this.reg_name = reg_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public BigDecimal getReg_money() {
-        return reg_money;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setReg_money(BigDecimal reg_money) {
-        this.reg_money = reg_money;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
 

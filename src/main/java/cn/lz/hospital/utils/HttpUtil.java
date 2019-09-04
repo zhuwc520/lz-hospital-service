@@ -33,7 +33,7 @@ public class HttpUtil {
 	 *            请求参数，Map类型。
 	 * @return 远程响应结果
 	 */
-	public static String sendPost(String url, Map<String, String> parameters) {
+	public static String sendPost(String url, Map<String, Object> parameters) {
 		String result = "";// 返回的结果
 		BufferedReader in = null;// 读取响应输入流
 		PrintWriter out = null;

@@ -50,7 +50,7 @@ public interface SickMapper extends Mapper<KS> {
      *
      * @return
      */
-    public String insertRegistration(            @Param("name") String name,
+    public Map<String,Object> insertRegistration(            @Param("name") String name,
                                                  @Param("sex") Integer sex,
                                                  @Param("age") Integer age,
                                                  @Param("card_no") String card_no,

@@ -86,13 +86,9 @@ public class SickServiceImpl implements SickService {
                                                   Integer age, String card_no,
                                                   Integer doctor_id, Integer department_id,
                                                   Integer ghtype_id,String id_card) {
-        Map<String, Object> retMap = new HashMap<>();
-        String treat_no = sickMapper.insertRegistration(name, sex,
+        Map<String, Object>
+        retMap  = sickMapper.insertRegistration(name, sex,
                 age, card_no, doctor_id, department_id, ghtype_id,id_card);
-        if (ValidateUtil.isEmpty(treat_no)) {
-            return null;
-        }
-        retMap.put("treat_no", treat_no);
         return retMap;
     }
 

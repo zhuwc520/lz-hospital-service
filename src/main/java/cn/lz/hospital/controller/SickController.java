@@ -82,7 +82,6 @@ public class SickController extends BaseController {
      */
     @RequestMapping(value = "/getKsList")
     @ApiOperation(httpMethod = "POST", value = "科室列表", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiImplicitParam(name = "id", value = "科室id", required = true, dataType = "int", paramType = "form")
     public void getKsList(HttpServletRequest request, HttpServletResponse response) {
         OutMsgBean outMsgBean = null;
         try {
@@ -216,14 +215,14 @@ public class SickController extends BaseController {
     }
 
     /**
-     * 挂号列表查询
+     * 挂号类别查询
      *
      * @param request
      * @param response
      */
 
     @RequestMapping(value = "/getGhTypeList")
-    @ApiOperation(httpMethod = "POST", value = "挂号列表查询", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(httpMethod = "POST", value = "挂号类别查询", produces = MediaType.APPLICATION_JSON_VALUE)
     public void getGhTypeList(HttpServletRequest request, HttpServletResponse response) {
         OutMsgBean outMsgBean = null;
         try {
@@ -336,13 +335,18 @@ public class SickController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            if (result == 2) {
+            if (result == -2) {
                 outMsgBean = new OutMsgBean(-100, "金额不符");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
             if (result == -1) {
                 outMsgBean = new OutMsgBean(-100, "缴费失败");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            if(result == -3){
+                outMsgBean = new OutMsgBean(-100, "无该人的住院待结算记录");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
@@ -390,6 +394,12 @@ public class SickController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
+            if(result == -2){
+                outMsgBean = new OutMsgBean(-100, "无该卡号的有效住院记录");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
 
             outMsgBean = new OutMsgBean(result);
             outJSONMsg(response, outMsgBean);
@@ -450,6 +460,11 @@ public class SickController extends BaseController {
             BigDecimal bgTotal = new BigDecimal(total);
             LoggerUtils.info("接口[{}]，请求数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             Integer result = sickService.insertMzPay(card_no, bgTotal);
+            if(result == null){
+                outMsgBean = new OutMsgBean(-100, "缴费异常");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
             if (result == -3) {
                 outMsgBean = new OutMsgBean(-100, "无该人的门诊待结算记录");
                 outJSONMsg(response, outMsgBean);

@@ -45,21 +45,24 @@
         {call pMobile_YsList}
     </select>
 
-    <select id="getDoctorById" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE" parameterType="java.lang.Integer">
+    <select id="getDoctorById" resultType="cn.lz.hospital.domain.Doctor" statementType="CALLABLE"
+            parameterType="java.lang.Integer">
         {call pMobile_YsList(#{department_id,mode=IN})}
     </select>
 
     <!-- 挂号-->
-    <select id="insertRegistration" resultType="java.lang.String" statementType="CALLABLE">
-        exec pMobile_GhInsert #{name,mode=IN,jdbcType=VARCHAR},
-        #{sex,jdbcType=INTEGER,mode=IN},
-        #{age,jdbcType=INTEGER,mode=IN},
-        #{card_no,jdbcType=VARCHAR,mode=IN},
-        #{doctor_id,jdbcType=INTEGER,mode=IN},
-        #{department_id,jdbcType=INTEGER,mode=IN},
-        #{ghtype_id,mode=IN,jdbcType=INTEGER,mode=IN},
-        #{id_card,mode=IN,jdbcType=VARCHAR,mode=IN},
-        #{treat_no,mode=OUT,jdbcType=VARCHAR}
+    <select id="insertRegistration" resultType="java.util.HashMap" statementType="CALLABLE">
+
+       {call pMobile_GhInsert (#{name,mode=IN,jdbcType=VARCHAR},
+       #{sex,jdbcType=INTEGER,mode=IN},
+       #{age,jdbcType=INTEGER,mode=IN},
+       #{card_no,jdbcType=VARCHAR,mode=IN},
+       #{doctor_id,jdbcType=INTEGER,mode=IN},
+       #{department_id,jdbcType=INTEGER,mode=IN},
+       #{ghtype_id,mode=IN,jdbcType=INTEGER,mode=IN},
+       #{id_card,mode=IN,jdbcType=VARCHAR,mode=IN},
+       #{treat_no,mode=OUT,jdbcType=VARCHAR}
+       )}
     </select>
     <!-- 挂号类别查询-->
     <select id="getGhTypeAllList" resultMap="ghTypeMap" statementType="CALLABLE">
@@ -83,7 +86,9 @@
 
     <!--住院预缴费-->
     <select id="insertZyPrePay" resultType="java.lang.Integer" statementType="CALLABLE">
-        {call pMobile_InsertZyPrePay(#{card_no,mode=IN},#{total,mode=IN})}
+        declare @result int
+       exec @result =  pMobile_InsertZyPrePay #{card_no,mode=IN},#{total,mode=IN}
+       select @result
     </select>
 
     <select id="hyBgDetail" resultType="cn.lz.hospital.domain.HyBgDetail" statementType="CALLABLE">

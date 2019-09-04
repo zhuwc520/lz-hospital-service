@@ -116,13 +116,13 @@ public class SickServiceImpl implements SickService {
 
     /**
      * 住院缴费
-     * @param zyBm
+     * @param card_no
      * @param total
      * @return
      */
     @Override
-    public Integer insertZyPay(String zyBm, BigDecimal total) {
-        return sickMapper.insertZyPay(zyBm,total);
+    public Integer insertZyPay(String card_no, BigDecimal total) {
+        return sickMapper.insertZyPay(card_no,total);
     }
 
     /**
@@ -147,7 +147,7 @@ public class SickServiceImpl implements SickService {
     }
 
     @Override
-    public JchyBgInfo jchyBgInfo(String tmh, String type) {
+    public List<JchyBgInfo> jchyBgInfo(String tmh, String type) {
 
         return sickMapper.jchyBgInfo(tmh,type);
     }

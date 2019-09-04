@@ -80,11 +80,11 @@ public interface SickService {
 
     /**
      * 住院缴费
-     * @param zyBm
+     * @param card_no
      * @param total
      * @return
      */
-    public Integer insertZyPay(String zyBm, BigDecimal total);
+    public Integer insertZyPay(String card_no, BigDecimal total);
 
     /**
      * 住院预交费
@@ -115,7 +115,7 @@ public interface SickService {
      * @param type
      * @return
      */
-    public JchyBgInfo jchyBgInfo(String tmh,String type);
+    public List<JchyBgInfo> jchyBgInfo(String tmh,String type);
 
     /**
      * 检查化验报告列表

@@ -84,11 +84,11 @@ public interface SickMapper extends Mapper<KS> {
 
     /**
      * 住院缴费
-     * @param zyBm
+     * @param card_no
      * @param total
      * @return
      */
-    public Integer insertZyPay(@Param("ZyBm")String zyBm, @Param("Total")BigDecimal total);
+    public Integer insertZyPay(@Param("card_no")String card_no, @Param("total")BigDecimal total);
 
     /**
      * 住院预交费
@@ -96,14 +96,14 @@ public interface SickMapper extends Mapper<KS> {
      * @param total
      * @return
      */
-    public Integer insertZyPrePay(@Param("card_no")String card_no, @Param("Total")BigDecimal total);
+    public Integer insertZyPrePay(@Param("card_no")String card_no, @Param("total")BigDecimal total);
 
     /**
      * 化验报告明细
-     * @param tmh
+     * @param szTmh
      * @return
      */
-    public List<HyBgDetail> hyBgDetail(@Param("tmh") String tmh);
+    public List<HyBgDetail> hyBgDetail(@Param("szTmh") String szTmh);
 
     /**
      * 患者门诊缴费
@@ -115,11 +115,11 @@ public interface SickMapper extends Mapper<KS> {
 
     /**
      * 检查化验报告表头
-     * @param tmh
-     * @param type
+     * @param sztmh
+     * @param sztype
      * @return
      */
-    public JchyBgInfo jchyBgInfo(@Param("tmh") String tmh,@Param("type") String type);
+    public List<JchyBgInfo> jchyBgInfo(@Param("sztmh") String sztmh,@Param("sztype") String sztype);
 
     /**
      * 检查报告列表

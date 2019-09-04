@@ -78,16 +78,16 @@
 
     <!--住院缴费-->
     <select id="insertZyPay" resultType="java.lang.Integer" statementType="CALLABLE">
-        {call pMobile_InsertZyPay(#{ZyBm,mode=IN},#{Total,mode=IN})}
+        {call pMobile_InsertZyPay(#{card_no,mode=IN},#{total,mode=IN})}
     </select>
 
     <!--住院预缴费-->
     <select id="insertZyPrePay" resultType="java.lang.Integer" statementType="CALLABLE">
-        {call pMobile_InsertZyPrePay(#{card_no,mode=IN},#{Total,mode=IN})}
+        {call pMobile_InsertZyPrePay(#{card_no,mode=IN},#{total,mode=IN})}
     </select>
 
     <select id="hyBgDetail" resultType="cn.lz.hospital.domain.HyBgDetail" statementType="CALLABLE">
-        {call pMobile_HyBgDetail(#{tmh,mode=IN})}
+        {call pMobile_HyBgDetail(#{szTmh,mode=IN})}
     </select>
     <select id="insertMzPay" resultType="java.lang.Integer" statementType="CALLABLE">
         declare @result int
@@ -96,7 +96,7 @@
     </select>
 
     <select id="jchyBgInfo" resultType="cn.lz.hospital.domain.JchyBgInfo" statementType="CALLABLE">
-        {call pMobile_JchyBgInfo(#{tmh,mode=IN},#{type,mode=IN})}
+        {call pMobile_JchyBgInfo(#{sztmh,mode=IN},#{sztype,mode=IN})}
     </select>
     <select id="jchyBgList" resultType="cn.lz.hospital.domain.JchyBgList" statementType="CALLABLE">
         {call pMobile_JchyBgList(#{card_no,mode=IN})}

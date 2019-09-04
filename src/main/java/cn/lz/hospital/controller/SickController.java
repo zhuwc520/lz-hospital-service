@@ -319,7 +319,7 @@ public class SickController extends BaseController {
     @RequestMapping(value = "/insertZyPay")
     @ApiOperation(httpMethod = "POST", value = "住院缴费", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "zyBm", value = "住院编号", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "card_no", value = "住院编号", required = true, dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "total", value = "总金额", required = true, dataType = "string", paramType = "form")
     }
     )
@@ -327,7 +327,7 @@ public class SickController extends BaseController {
         OutMsgBean outMsgBean = null;
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            String zyBm = getString("zyBm", null, paramsMap);
+            String zyBm = getString("card_no", null, paramsMap);
             String total = getString("total", "0.00", paramsMap);
             BigDecimal totalBig = new BigDecimal(total);
             Integer result = sickService.insertZyPay(zyBm, totalBig);
@@ -496,12 +496,13 @@ public class SickController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            JchyBgInfo jchyBgInfo = sickService.jchyBgInfo(tmh, type);
-            if (ValidateUtil.isEmpty(jchyBgInfo)) {
+            List<JchyBgInfo> jchyBgInfos = sickService.jchyBgInfo(tmh, type);
+            if (ValidateUtil.checkListIsNotEmpty(jchyBgInfos)) {
                 outMsgBean = new OutMsgBean(-100, "查无数据");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
+            JchyBgInfo jchyBgInfo = jchyBgInfos.get(0);
             outMsgBean = new OutMsgBean(jchyBgInfo);
             LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             outJSONMsg(response, outMsgBean);

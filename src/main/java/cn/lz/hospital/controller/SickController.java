@@ -496,8 +496,8 @@ public class SickController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            List<JchyBgInfo> jchyBgInfos = sickService.jchyBgInfo(tmh, type);
-            if (ValidateUtil.checkListIsNotEmpty(jchyBgInfos)) {
+           List<JchyBgInfo> jchyBgInfos = sickService.jchyBgInfo(tmh, type);
+            if (!ValidateUtil.checkListIsNotEmpty(jchyBgInfos)|| jchyBgInfos.size() != 0) {
                 outMsgBean = new OutMsgBean(-100, "查无数据");
                 outJSONMsg(response, outMsgBean);
                 return;

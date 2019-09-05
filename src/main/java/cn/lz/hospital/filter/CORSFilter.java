@@ -29,21 +29,14 @@ public class CORSFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		HttpServletRequest request = (HttpServletRequest) servletRequest;
-		//跨域的header设置
-		response.setHeader("Access-control-Allow-Origin",request.getHeader("Origin"));
-		LoggerUtils.info( request.getHeader("Origin"));
-		response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Headers", "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,chagoiToken");
-		LoggerUtils.info(request.getHeader("Access-Control-Request-Headers"));
-		//防止乱码，适用于传输JSON数据
-		response.setHeader("Content-Type","application/json;charset=UTF-8");
-		if(request.getMethod().equals("OPTIONS")){
-			response.setStatus(200);
-		}
-		filterChain.doFilter( servletRequest, response );
+		HttpServletRequest request=(HttpServletRequest)servletRequest;
+		HttpServletResponse response=(HttpServletResponse)servletResponse;
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		//过滤通行证
+		filterChain.doFilter(request, response);
 
 	}
 

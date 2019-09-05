@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public interface SickMapper extends Mapper<KS> {
      *
      * @return
      */
-    public Map<String,Object> insertRegistration(            @Param("name") String name,
+    public Map<String,Object> insertRegistration(@Param("name") String name,
                                                  @Param("sex") Integer sex,
                                                  @Param("age") Integer age,
                                                  @Param("card_no") String card_no,
@@ -59,7 +60,6 @@ public interface SickMapper extends Mapper<KS> {
                                                  @Param("ghtype_id") Integer ghtype_id,
                                                  @Param("id_card") String id_card
                                                  );
-
     /**
      * 挂号类别查询
      * @return

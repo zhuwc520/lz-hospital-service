@@ -50,7 +50,7 @@ public class SickController extends BaseController {
         try {
             Map<String, Object> paramsMap = new HashMap<>();
             String card_no = getString("card_no", null, paramsMap);
-            LoggerUtils.info("接口[{}]，请求参数:", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
             if (ValidateUtil.isEmpty(card_no)) {
                 outMsgBean = new OutMsgBean(-100, "参数不能为空");
                 outJSONMsg(response, outMsgBean);
@@ -87,11 +87,11 @@ public class SickController extends BaseController {
         try {
             Map<String, Object> paramsMap = new HashMap<>();
             Integer id = getInteger("id", null, paramsMap);
-            LoggerUtils.info("接口[{}]，请求参数:", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
             Map<String, Object> retMap = sickService.getAllById(id);
             outMsgBean = new OutMsgBean(retMap);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
         } catch (Exception e) {
             LoggerUtils.error("科室列表查询异常===》{}", e.getMessage());
             outMsgBean = new OutMsgBean(-100, "查询科室列表异常");
@@ -148,7 +148,7 @@ public class SickController extends BaseController {
             }
             outMsgBean = new OutMsgBean(doctorList);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
         } catch (Exception e) {
             LoggerUtils.error("医生列表查询异常===》{}", e.getMessage());
             outMsgBean = new OutMsgBean(-100, "医生查询列表发生异常");
@@ -188,7 +188,7 @@ public class SickController extends BaseController {
             Integer department_id = getInteger("department_id", null, paramsMap);
             String card_no = getString("card_no", null, paramsMap);
             String id_card = getString("id_card", null, paramsMap);
-            LoggerUtils.info("接口[{}]，请求参数:", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
             if (ValidateUtil.isEmpty(name) || ValidateUtil.isEmpty(sex)
                     || ValidateUtil.isEmpty(age) || ValidateUtil.isEmpty(ghtype_id)
                     || ValidateUtil.isEmpty(doctor_id) || ValidateUtil.isEmpty(department_id)
@@ -203,9 +203,20 @@ public class SickController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
+            Integer result = Integer.valueOf(retMap.get("result").toString());
+            if(result == -10){
+                outMsgBean = new OutMsgBean(-100, "建卡失败");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            if(result == -1){
+                outMsgBean = new OutMsgBean(-100, "挂号失败");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
             outMsgBean = new OutMsgBean(retMap);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
         } catch (Exception e) {
             LoggerUtils.error("挂号异常===》{}", e.getMessage());
             outMsgBean = new OutMsgBean(-100, "挂号异常发生异常");
@@ -266,7 +277,7 @@ public class SickController extends BaseController {
             }
             outMsgBean = new OutMsgBean(mzPayableList);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
 
         } catch (Exception e) {
             LoggerUtils.error("门诊缴费查询===》{}", e.getMessage());
@@ -299,7 +310,7 @@ public class SickController extends BaseController {
             }
             outMsgBean = new OutMsgBean(zyPayables);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
 
         } catch (Exception e) {
             LoggerUtils.error("住院缴费查询===》{}", e.getMessage());
@@ -353,7 +364,7 @@ public class SickController extends BaseController {
 
             outMsgBean = new OutMsgBean(result);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
 
         } catch (Exception e) {
             LoggerUtils.error("住院缴费===》{}", e.getMessage());
@@ -403,7 +414,7 @@ public class SickController extends BaseController {
 
             outMsgBean = new OutMsgBean(result);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
 
         } catch (Exception e) {
             LoggerUtils.error("住院缴费===》{}", e.getMessage());
@@ -435,7 +446,7 @@ public class SickController extends BaseController {
             }
             outMsgBean = new OutMsgBean(hyBgDetailList);
             outJSONMsg(response, outMsgBean);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
 
         } catch (Exception e) {
             LoggerUtils.error("化验报告明细异常==》{}", e.getMessage());
@@ -458,7 +469,7 @@ public class SickController extends BaseController {
             String card_no = getString("card_no", null, paramsMap);
             String total = getString("total", "0.00", paramsMap);
             BigDecimal bgTotal = new BigDecimal(total);
-            LoggerUtils.info("接口[{}]，请求数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，请求数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             Integer result = sickService.insertMzPay(card_no, bgTotal);
             if(result == null){
                 outMsgBean = new OutMsgBean(-100, "缴费异常");
@@ -478,7 +489,7 @@ public class SickController extends BaseController {
             if (result == -1) {
                 outMsgBean = new OutMsgBean(-100, "其他错误");
                 outJSONMsg(response, outMsgBean);
-                LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+                LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
                 return;
             }
             if (result == 1) {
@@ -503,9 +514,10 @@ public class SickController extends BaseController {
         OutMsgBean outMsgBean = null;
         try {
             Map<String, Object> paramsMap = new HashMap<>();
+            LoggerUtils.info("编码=="+request.getCharacterEncoding());
             String tmh = getString("tmh", null, paramsMap);
             String type = getString("type", null, paramsMap);
-            LoggerUtils.info("接口[{}]，请求数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，请求数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             if (ValidateUtil.isEmpty(tmh) || ValidateUtil.isEmpty(type)) {
                 outMsgBean = new OutMsgBean(-100, "参数不能为空");
                 outJSONMsg(response, outMsgBean);
@@ -519,7 +531,7 @@ public class SickController extends BaseController {
             }
             JchyBgInfo jchyBgInfo = jchyBgInfos.get(0);
             outMsgBean = new OutMsgBean(jchyBgInfo);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             outJSONMsg(response, outMsgBean);
         } catch (Exception e) {
             LoggerUtils.error("检查化验报告表头异常==》{}", e.getMessage());
@@ -548,7 +560,7 @@ public class SickController extends BaseController {
                 return;
             }
             outMsgBean = new OutMsgBean(jchyBgLists);
-            LoggerUtils.info("接口[{}]，返回数据:", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             outJSONMsg(response, outMsgBean);
         } catch (Exception e) {
             LoggerUtils.error("检查化验报告列表异常==》{}", e.getMessage());

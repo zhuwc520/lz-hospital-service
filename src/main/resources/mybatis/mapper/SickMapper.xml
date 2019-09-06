@@ -11,9 +11,9 @@
         <result column="treat_no" jdbcType="VARCHAR" property="treat_no"/>
     </resultMap>
     <resultMap id="ghTypeMap" type="cn.lz.hospital.domain.GhType">
-        <result column="reg_bm" jdbcType="VARCHAR" property="reg_bm"/>
-        <result column="reg_name" jdbcType="VARCHAR" property="reg_name"/>
-        <result column="reg_money" jdbcType="VARCHAR" property="reg_money"/>
+        <result column="reg_bm" jdbcType="VARCHAR" property="id"/>
+        <result column="reg_name" jdbcType="VARCHAR" property="name"/>
+        <result column="reg_money" jdbcType="NUMERIC" property="price"/>
     </resultMap>
 
     <resultMap id="zyPayAbleMap" type="cn.lz.hospital.domain.ZyPayable">

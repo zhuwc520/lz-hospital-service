@@ -3,13 +3,15 @@ package cn.lz.hospital.domain;
 import cn.lz.hospital.utils.HttpUtil;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestMain {
     public static final String URL = "http://localhost:8080/sick/";
     public static void main(String [] arg){
-
+      System.out.println(String.valueOf(System.currentTimeMillis()).substring(0,10));
     }
     //@Test
     public void checkUniqueness(){

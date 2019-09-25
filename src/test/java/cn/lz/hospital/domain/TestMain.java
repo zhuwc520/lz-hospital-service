@@ -98,7 +98,7 @@ public class TestMain {
     String res = HttpUtil.sendPost("http://localhost:8080/sick/insertMzPay",reqMap);
     System.out.println(res);
     }
-    @Test
+   // @Test
     public void jchyBgInfo(){
         Map<String,Object> reqMap = new HashMap<>();
         reqMap.put("tmh","919236101858");

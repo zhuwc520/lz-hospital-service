@@ -129,8 +129,8 @@ public class SickServiceImpl implements SickService {
      * @return
      */
     @Override
-    public Integer insertZyPrePay(String card_no, BigDecimal total) {
-        return sickMapper.insertZyPrePay(card_no,total);
+    public Integer insertZyPrePay(String card_no, BigDecimal total,BigDecimal zyyz) {
+        return sickMapper.insertZyPrePay(card_no,total,zyyz);
     }
 
     @Override

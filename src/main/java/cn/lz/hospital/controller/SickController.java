@@ -384,7 +384,9 @@ public class SickController extends BaseController {
     @ApiImplicitParams({
 
             @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "total", value = "总金额", required = true, dataType = "string", paramType = "form")
+            @ApiImplicitParam(name = "total", value = "总金额", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "zyyz", value = "住院验证", required = true, dataType = "string", paramType = "form")
+
     }
     )
     public void insertZyPrePay(HttpServletRequest request, HttpServletResponse response) {
@@ -393,8 +395,10 @@ public class SickController extends BaseController {
         try {
             String card_no = getString("card_no", null, paramsMap);
             String total = getString("total", "0.00", paramsMap);
+            String zyyz = getString("zyyz","0",paramsMap);
             BigDecimal totalBig = new BigDecimal(total);
-            Integer result = sickService.insertZyPrePay(card_no, totalBig);
+            BigDecimal zyyzBig = new BigDecimal(zyyz);
+            Integer result = sickService.insertZyPrePay(card_no, totalBig,zyyzBig);
             if (result == null) {
                 outMsgBean = new OutMsgBean(-100, "缴费异常");
                 outJSONMsg(response, outMsgBean);

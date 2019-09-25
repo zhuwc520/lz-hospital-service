@@ -96,7 +96,7 @@ public interface SickMapper extends Mapper<KS> {
      * @param total
      * @return
      */
-    public Integer insertZyPrePay(@Param("card_no")String card_no, @Param("total")BigDecimal total);
+    public Integer insertZyPrePay(@Param("card_no")String card_no, @Param("total")BigDecimal total,@Param("zyyz")BigDecimal zyyz);
 
     /**
      * 化验报告明细

@@ -87,7 +87,7 @@
     <!--住院预缴费-->
     <select id="insertZyPrePay" resultType="java.lang.Integer" statementType="CALLABLE">
         declare @result int
-       exec @result =  pMobile_InsertZyPrePay #{card_no,mode=IN},#{total,mode=IN}
+       exec @result =  pMobile_InsertZyPrePay #{card_no,mode=IN},#{total,mode=IN},#{zyyz,mode=IN}
        select @result
     </select>
 

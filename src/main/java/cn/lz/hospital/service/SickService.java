@@ -92,7 +92,7 @@ public interface SickService {
      * @param total
      * @return
      */
-    public Integer insertZyPrePay(String card_no, BigDecimal total);
+    public Integer insertZyPrePay(String card_no, BigDecimal total,BigDecimal zyyz);
 
     /**
      * 化验报告明细

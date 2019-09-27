@@ -37,6 +37,13 @@ public class TestMain {
         String res = HttpUtil.sendPost("http://localhost:8080/sick/getGhTypeList",null);
         System.out.println(res);
     }
+    @Test
+    public void getQueryCardNo(){
+        Map<String,Object>  reqMap = new HashMap<>();
+        reqMap.put("id_card","211121196910282815q");
+        String res = HttpUtil.sendPost("http://221.210.124.34:8089/lz-hospital-service/sick/queryCardNo",reqMap);
+        System.out.println(res);
+    }
 
     //@Test
     public void ghInsert(){

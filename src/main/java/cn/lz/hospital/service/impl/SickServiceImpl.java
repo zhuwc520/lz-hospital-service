@@ -3,11 +3,9 @@ package cn.lz.hospital.service.impl;
 import cn.lz.hospital.domain.*;
 import cn.lz.hospital.persistence.SickMapper;
 import cn.lz.hospital.service.SickService;
-import cn.lz.hospital.utils.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -58,8 +56,8 @@ public class SickServiceImpl implements SickService {
     }
 
     /**
-     *
      * 根据科室编号获取医生列表
+     *
      * @param department_id 科室编号
      * @return
      */
@@ -85,10 +83,10 @@ public class SickServiceImpl implements SickService {
     public Map<String, Object> insertRegistration(String name, Integer sex,
                                                   Integer age, String card_no,
                                                   Integer doctor_id, Integer department_id,
-                                                  Integer ghtype_id,String id_card) {
+                                                  Integer ghtype_id, String id_card) {
 
-        Map<String,Object> paramsMap   = sickMapper.insertRegistration(name, sex,
-                age, card_no, doctor_id, department_id, ghtype_id,id_card);
+        Map<String, Object> paramsMap = sickMapper.insertRegistration(name, sex,
+                age, card_no, doctor_id, department_id, ghtype_id, id_card);
 
         return paramsMap;
     }
@@ -101,7 +99,7 @@ public class SickServiceImpl implements SickService {
 
     @Override
     public List<MzPayable> getMzPayableList(String card_no) {
-        List<MzPayable> mzPayableList  = sickMapper.getMzPayableList(card_no);
+        List<MzPayable> mzPayableList = sickMapper.getMzPayableList(card_no);
         return mzPayableList;
     }
 
@@ -113,24 +111,26 @@ public class SickServiceImpl implements SickService {
 
     /**
      * 住院缴费
+     *
      * @param card_no
      * @param total
      * @return
      */
     @Override
     public Integer insertZyPay(String card_no, BigDecimal total) {
-        return sickMapper.insertZyPay(card_no,total);
+        return sickMapper.insertZyPay(card_no, total);
     }
 
     /**
      * 住院预交费
+     *
      * @param card_no
      * @param total
      * @return
      */
     @Override
-    public Integer insertZyPrePay(String card_no, BigDecimal total,BigDecimal zyyz) {
-        return sickMapper.insertZyPrePay(card_no,total,zyyz);
+    public Integer insertZyPrePay(String card_no, BigDecimal total, BigDecimal zyyz) {
+        return sickMapper.insertZyPrePay(card_no, total, zyyz);
     }
 
     @Override
@@ -140,17 +140,22 @@ public class SickServiceImpl implements SickService {
 
     @Override
     public Integer insertMzPay(String card_no, BigDecimal total) {
-        return sickMapper.insertMzPay(card_no,total);
+        return sickMapper.insertMzPay(card_no, total);
     }
 
     @Override
     public List<JchyBgInfo> jchyBgInfo(String tmh, String type) {
 
-        return sickMapper.jchyBgInfo(tmh,type);
+        return sickMapper.jchyBgInfo(tmh, type);
     }
 
     @Override
     public List<JchyBgList> jchyBgList(String card_no) {
         return sickMapper.jchyBgList(card_no);
+    }
+
+    @Override
+    public HashMap<String, Object> queryCardNo(String id_card) {
+        return sickMapper.queryCardNo(id_card);
     }
 }

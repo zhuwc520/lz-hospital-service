@@ -106,4 +106,9 @@
     <select id="jchyBgList" resultType="cn.lz.hospital.domain.JchyBgList" statementType="CALLABLE">
         {call pMobile_JchyBgList(#{card_no,mode=IN})}
     </select>
+    <select id="queryCardNo" resultType="java.util.HashMap" statementType="CALLABLE">
+        {call pMobile_QueryCardNo (#{id_card,mode=IN,jdbcType=VARCHAR},
+        #{card_no,mode=OUT,jdbcType=VARCHAR})
+        }
+    </select>
 </mapper>

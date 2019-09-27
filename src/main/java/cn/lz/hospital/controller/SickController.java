@@ -573,4 +573,40 @@ public class SickController extends BaseController {
 
         }
     }
+
+    @RequestMapping("/queryCardNo")
+    @ApiOperation(httpMethod = "POST",value = "查询卡号",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "id_card",value = "身份证号",required = true,dataType = "string",paramType = "form")
+    public void queryCardNo(HttpServletRequest request,HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String,Object> paramsMap = new HashMap<>();
+            String id_card = getString("id_card",null,paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if(ValidateUtil.isEmpty(id_card)){
+                outMsgBean = new OutMsgBean(-100,"参数不能为空");
+                outJSONMsg(response,outMsgBean);
+                return;
+            }
+            HashMap<String,Object> retMap = sickService.queryCardNo(id_card);
+            if(retMap.containsKey("result") && retMap.get("result").toString().equals("-100")){
+                outMsgBean = new OutMsgBean(-100,"该身份证未建卡");
+                outJSONMsg(response,outMsgBean);
+                return;
+            }
+            if(!ValidateUtil.checkMapIsNotEmpty(retMap)){
+                outMsgBean = new OutMsgBean(-100,"卡不存在");
+                outJSONMsg(response,outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(retMap);
+            outJSONMsg(response,outMsgBean);
+            LoggerUtils.info("接口[{}]，响应数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+        }catch (Exception e){
+            LoggerUtils.error("查询卡号异常==》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "查询卡号异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
 }

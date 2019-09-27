@@ -3,6 +3,7 @@ package cn.lz.hospital.service;
 import cn.lz.hospital.domain.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,4 +124,11 @@ public interface SickService {
      * @return
      */
     public List<JchyBgList> jchyBgList(String card_no);
+
+    /**
+     * 查询卡号
+     * @param id_card
+     * @return
+     */
+    public HashMap<String,Object> queryCardNo(String id_card);
 }

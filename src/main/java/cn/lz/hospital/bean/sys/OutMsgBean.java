@@ -12,6 +12,7 @@ public class OutMsgBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer error_code = 200;
     private String error_msg = "成功";
+    private Integer page;
     private Object data;
 
     public OutMsgBean() {
@@ -27,7 +28,10 @@ public class OutMsgBean implements Serializable {
     public OutMsgBean(Object data) {
         this.data = data;
     }
-
+    public OutMsgBean(Integer page,Object data){
+        this.page = page;
+        this.data = data;
+    }
     public OutMsgBean(Integer error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
@@ -55,5 +59,13 @@ public class OutMsgBean implements Serializable {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }

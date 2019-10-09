@@ -16,13 +16,9 @@
 		<java.version>1.8</java.version>
 		<org.springframework.version>4.3.20.RELEASE</org.springframework.version>
 		<fastjson.version>1.2.53</fastjson.version>
-		<zkclient.version>0.11</zkclient.version>
 		<sqlserver-driver.version>7.4.0.jre8</sqlserver-driver.version>
 		<tk-mybatis-mapper.version>2.0.3</tk-mybatis-mapper.version>
 		<tk-mybatis-mapper-pager.version>1.2.5</tk-mybatis-mapper-pager.version>
-		<spring-data-redis.version>1.8.7.RELEASE</spring-data-redis.version>
-		<spring-cloud-config-server.version>2.0.2.RELEASE</spring-cloud-config-server.version>
-		<etcd4j.version>2.13.0</etcd4j.version>
 	</properties>
 	<profiles>
 		<profile>
@@ -156,11 +152,6 @@
 			<version>1.1.12</version>
 		</dependency>
 		<dependency>
-			<groupId>com.aliyun.oss</groupId>
-			<artifactId>aliyun-sdk-oss</artifactId>
-			<version>2.4.0</version>
-		</dependency>
-		<dependency>
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper</artifactId>
 			<version>4.0.2</version>
@@ -178,12 +169,6 @@
 			<version>1.3.0-GA</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-			<version>${spring-data-redis.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.4.6</version>
@@ -198,14 +183,6 @@
 					<groupId>com.alibaba</groupId>
 					<artifactId>fastjson</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>redis.clients</groupId>
-					<artifactId>jedis</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.data</groupId>
-					<artifactId>spring-data-redis</artifactId>
-				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -213,13 +190,6 @@
 			<artifactId>jodd-core</artifactId>
 			<version>5.0.12</version>
 		</dependency>
-		<!--shiro start-->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<!--shiro end-->
 		<!-- logback start-->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -261,30 +231,9 @@
 			<version>2.8.5</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.9.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-		</dependency>
-		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
 			<version>1.5.10</version>
-		</dependency>
-		<!--邮件相关 -->
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.23</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4</version>
 		</dependency>
 	</dependencies>
 

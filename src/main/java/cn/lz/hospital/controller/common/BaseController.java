@@ -1,16 +1,10 @@
 package cn.lz.hospital.controller.common;
 
-import cn.lz.hospital.bean.sys.OutMsgBean;
 import cn.lz.hospital.utils.AESUtil;
 import cn.lz.hospital.utils.StaticConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import jodd.util.StringUtil;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authz.AuthorizationException;
-import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.shiro.authz.UnauthorizedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import win.hupubao.common.exception.BusinessException;
@@ -322,35 +316,6 @@ public class BaseController {
         }
     }
 
-    /**
-     * 登录认证异常
-     */
-    @ExceptionHandler({UnauthenticatedException.class, AuthenticationException.class})
-    public String authenticationException(HttpServletRequest request, HttpServletResponse response) {
-        if (isAjaxRequest(request)) {
-            outJSON(response, new OutMsgBean(-100, "未登录"));
-            return null;
-        } else {
-            return "redirect:/login";
-        }
-    }
-
-    /**
-     * 权限认证异常
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
-    public String authorizationException(HttpServletRequest request, HttpServletResponse response) {
-        if (isAjaxRequest(request)) {
-            outJSON(response, new OutMsgBean(-101, "权限不足"));
-            return null;
-        } else {
-            return "redirect:/system/403";
-        }
-    }
 
     /**
      * 是否是Ajax请求

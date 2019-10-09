@@ -151,4 +151,20 @@ public interface SickMapper extends Mapper<KS> {
      */
     public HashMap<String,Object> queryCardNo(@Param("id_card") String id_card);
 
+
+    /**
+     * 住院记录
+     * @param card_no
+     * @return
+     */
+    public List<ZyRecordBean> queryZyJlList(@Param("card_no") String card_no);
+
+    /**
+     * 住院清单
+     * @param zybm
+     * @return
+     */
+    public List<FyDetail> queryFyDetailList(@Param("zybm") String zybm);
+
+
 }

@@ -111,4 +111,15 @@
         #{card_no,mode=OUT,jdbcType=VARCHAR})
         }
     </select>
+
+    <!--住院记录-->
+    <select id="queryZyJlList" resultType="cn.lz.hospital.domain.ZyRecordBean" statementType="CALLABLE">
+        {call pMobile_ZyJlList(#{card_no,mode=IN})}
+    </select>
+
+    <!--住院清单-->
+    <select id="queryFyDetailList" resultType="cn.lz.hospital.domain.FyDetail" statementType="CALLABLE">
+        {call pMobile_FyDetailList(#{zybm,mode=IN})}
+    </select>
+
 </mapper>

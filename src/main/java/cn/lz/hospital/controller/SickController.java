@@ -609,4 +609,62 @@ public class SickController extends BaseController {
         }
     }
 
+    //住院记录接口
+    @RequestMapping("/queryZyJlList")
+    @ApiOperation(httpMethod = "POST",value = "住院记录",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "card_no",value = "患者身份证号",required = true,dataType = "string",paramType = "form")
+    public void queryZyJlList(HttpServletRequest request,HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String card_no = getString("card_no", null, paramsMap);
+            if (ValidateUtil.isEmpty(card_no)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            List<ZyRecordBean> zyRecordBeans = sickService.queryZyJlList(card_no);
+            if (!ValidateUtil.checkListIsNotEmpty(zyRecordBeans)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(zyRecordBeans);
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            outJSONMsg(response, outMsgBean);
+        } catch (Exception e) {
+            LoggerUtils.error("住院记录报告列表异常==》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院记录列表异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+    //住院清单接口
+    @RequestMapping("/queryFyDetailList")
+    @ApiOperation(httpMethod = "POST",value = "住院清单",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "zybm",value = "患者身份证号",required = true,dataType = "string",paramType = "form")
+    public void queryFyDetailList(HttpServletRequest request,HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String zybm = getString("zybm", null, paramsMap);
+            if (ValidateUtil.isEmpty(zybm)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            List<FyDetail> fyDetails = sickService.queryFyDetailList(zybm);
+            if (!ValidateUtil.checkListIsNotEmpty(fyDetails)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(fyDetails);
+            LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+            outJSONMsg(response, outMsgBean);
+        } catch (Exception e) {
+            LoggerUtils.error("住院记录报告列表异常==》{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院记录列表异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
 }

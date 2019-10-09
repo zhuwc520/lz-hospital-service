@@ -158,4 +158,15 @@ public class SickServiceImpl implements SickService {
     public HashMap<String, Object> queryCardNo(String id_card) {
         return sickMapper.queryCardNo(id_card);
     }
+
+    @Override
+    public List<ZyRecordBean> queryZyJlList(String card_no) {
+        return sickMapper.queryZyJlList(card_no);
+    }
+
+    @Override
+    public List<FyDetail> queryFyDetailList(String zybm) {
+        return sickMapper.queryFyDetailList(zybm);
+    }
+
 }

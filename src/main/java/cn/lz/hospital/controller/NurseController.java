@@ -1,0 +1,208 @@
+package cn.lz.hospital.controller;
+
+import cn.lz.hospital.bean.sys.OutMsgBean;
+import cn.lz.hospital.controller.common.BaseController;
+import cn.lz.hospital.service.NurseService;
+import cn.lz.hospital.utils.ValidateUtil;
+import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import win.hupubao.common.utils.LoggerUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @ClassName NurseController
+ * @Description: TODO 护士端
+ * @Author zhuwc
+ * @Date 2019/10/9
+ * @Version V1.0
+ **/
+@Controller
+@RequestMapping("/nurse")
+@Api(tags = "护士端")
+public class NurseController extends BaseController {
+    @Autowired
+    private NurseService nurseService;
+
+    @RequestMapping("/hLogin")
+    @ApiOperation(httpMethod = "POST", value = "护士端登录接口", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "登陆id", required = true, dataType = "int", paramType = "form"),
+            @ApiImplicitParam(name = "password", value = "登陆密码", required = true, dataType = "string", paramType = "form")
+    })
+    public void hLogin(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            Integer id = getInteger("id", null, paramsMap);
+            String password = getString("password", null, paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if (ValidateUtil.isEmpty(id) || ValidateUtil.isEmpty(password)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+        } catch (Exception e) {
+            LoggerUtils.error("护士端登录，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "护士端登录，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    @RequestMapping("/hTwInput")
+    @ApiOperation(httpMethod = "POST", value = "填写体征检查数据", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "zybm", value = "患者住院号", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "temp", value = "患者体温", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "pulse", value = "脉搏", required = true, dataType = "int", paramType = "form"),
+            @ApiImplicitParam(name = "blood1", value = "低压", required = true, dataType = "int", paramType = "form"),
+            @ApiImplicitParam(name = "blood2", value = "高压", required = true, dataType = "int", paramType = "form"),
+            @ApiImplicitParam(name = "cldate", value = "测量日期", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "cltime", value = "测量时间", required = true, dataType = "int", paramType = "form")
+    })
+    public void hTwInput(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String zybm = getString("zybm", null, paramsMap);
+            Integer temp = getInteger("temp", null, paramsMap);
+            Integer pulse = getInteger("pulse", null, paramsMap);
+            Integer blood1 = getInteger("blood1", null, paramsMap);
+            Integer blood2 = getInteger("blood2", null, paramsMap);
+            String cldate = getString("cldate", null, paramsMap);
+            Integer cltime = getInteger("cltime", null, paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if (ValidateUtil.isEmpty(zybm) || ValidateUtil.isEmpty(temp)
+                    || ValidateUtil.isEmpty(pulse) || ValidateUtil.isEmpty(blood1)
+                    || ValidateUtil.isEmpty(blood2) || ValidateUtil.isEmpty(cldate)
+                    || ValidateUtil.isEmpty(cltime)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+        } catch (Exception e) {
+            LoggerUtils.error("填写体征检查数据，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "填写体征检查数据，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    @RequestMapping("/hHsList")
+    @ApiOperation(httpMethod = "POST", value = "护士列表", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void hHsList(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+
+            LoggerUtils.info("接口[{}]，响应数据：{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
+        } catch (Exception e) {
+            LoggerUtils.error("护士列表，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "护士列表，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    @RequestMapping("/hBrList")
+    @ApiOperation(httpMethod = "POST", value = "查房患者列表", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keywords", value = "搜索关键字。查询患者姓名，就诊号，card_no", required = false, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "id", value = "护士id", required = true, dataType = "int", paramType = "form"),
+            @ApiImplicitParam(name = "page", value = "分页页码", required = true, dataType = "int", paramType = "form")
+    })
+    public void hBrList(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String keywords = getString("keywords", null, paramsMap);
+            Integer id = getInteger("id", null, paramsMap);
+            Integer page = getInteger("page", null, paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if (ValidateUtil.isEmpty(id) || ValidateUtil.isEmpty(page)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+
+        } catch (Exception e) {
+            LoggerUtils.error("查房患者列表，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "查房患者列表，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    @RequestMapping("/hZxYz")
+    @ApiOperation(httpMethod = "POST",value = "护士执行医嘱完成后通知HIS",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id_bm",value = "护士编码",required = true,dataType = "int",paramType = "form"),
+            @ApiImplicitParam(name = "zybm",value = "患者住院号",required = true,dataType = "string",paramType = "form"),
+            @ApiImplicitParam(name = "xhstr",value = "执行医嘱的ID拼接字符串",required = true,dataType = "string",paramType = "form"),
+            @ApiImplicitParam(name = "action_time",value = "时间戳,执行医嘱时间",required = true,dataType = "string",paramType = "form")
+    })
+    public void hZxYz(HttpServletRequest request,HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String,Object> paramsMap = new HashMap<>();
+            Integer id_bm = getInteger("id_bm",null,paramsMap);
+            String zybm = getString("zybm",null,paramsMap);
+            String xhstr = getString("xhstr",null,paramsMap);
+            String action_time = getString("action_time",null,paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if(ValidateUtil.isEmpty(id_bm) || ValidateUtil.isEmpty(zybm) || ValidateUtil.isEmpty(xhstr) || ValidateUtil.isEmpty(action_time)){
+                outMsgBean = new OutMsgBean(-100,"参数不能为空");
+                outJSONMsg(response,outMsgBean);
+                return;
+            }
+
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+        }catch (Exception e){
+            LoggerUtils.error("护士执行医嘱完成后通知HIS，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "护士执行医嘱完成后通知HIS，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+    @RequestMapping("/hYzList")
+    @ApiOperation(httpMethod = "POST",value = "医嘱列表",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "zybm",value = "患者住院编号",required = true,dataType = "string",paramType = "form"),
+            @ApiImplicitParam(name = "yztype",value = "医嘱类别（长期医嘱,临时医嘱）",required = true,dataType = "string",paramType = "form"),
+            @ApiImplicitParam(name = "zt",value = "状态（所有,已执行，未执行，已停止）",required = true,dataType = "string",paramType = "form")
+    })
+    public void hYzList(HttpServletRequest request,HttpServletResponse response){
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String,Object> paramsMap = new HashMap<>();
+            String zybm = getString("zybm",null,paramsMap);
+            String yztype = getString("yztype",null,paramsMap);
+            String zt = getString("zt",null,paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if(ValidateUtil.isEmpty(zybm) || ValidateUtil.isEmpty(yztype) || ValidateUtil.isEmpty(zt)){
+                outMsgBean = new OutMsgBean(-100,"参数不能为空");
+                outJSONMsg(response,outMsgBean);
+                return;
+            }
+
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+        }catch (Exception e){
+            LoggerUtils.error("医嘱列表，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "医嘱列表，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+}

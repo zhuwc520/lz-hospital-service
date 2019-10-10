@@ -61,6 +61,7 @@
        #{department_id,jdbcType=INTEGER,mode=IN},
        #{ghtype_id,mode=IN,jdbcType=INTEGER,mode=IN},
        #{id_card,mode=IN,jdbcType=VARCHAR,mode=IN},
+       #{ghdate,mode=IN,jdbcType=VARCHAR,mode=IN},
        #{treat_no,mode=OUT,jdbcType=VARCHAR}
        )}
     </select>

@@ -174,7 +174,8 @@ public class SickController extends BaseController {
             @ApiImplicitParam(name = "doctor_id", value = "医生id", required = true, dataType = "int", paramType = "form"),
             @ApiImplicitParam(name = "department_id", value = "科室id", required = true, dataType = "int", paramType = "form"),
             @ApiImplicitParam(name = "card_no", value = "就诊卡号", required = true, dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "id_card", value = "身份证", required = true, dataType = "string", paramType = "form")
+            @ApiImplicitParam(name = "id_card", value = "身份证", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "ghdate", value = "挂号日期", required = true, dataType = "string", paramType = "form")
     })
     public void ghInsert(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> paramsMap = new HashMap<>();
@@ -188,16 +189,17 @@ public class SickController extends BaseController {
             Integer department_id = getInteger("department_id", null, paramsMap);
             String card_no = getString("card_no", null, paramsMap);
             String id_card = getString("id_card", null, paramsMap);
+            String ghdate = getString("ghdate",null,paramsMap);
             LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
             if (ValidateUtil.isEmpty(name) || ValidateUtil.isEmpty(sex)
                     || ValidateUtil.isEmpty(age) || ValidateUtil.isEmpty(ghtype_id)
                     || ValidateUtil.isEmpty(doctor_id) || ValidateUtil.isEmpty(department_id)
-                    || ValidateUtil.isEmpty(card_no) || ValidateUtil.isEmpty(id_card)) {
+                    || ValidateUtil.isEmpty(card_no) || ValidateUtil.isEmpty(id_card)||ValidateUtil.isEmpty(ghdate)) {
                 outMsgBean = new OutMsgBean(-100, "参数不能为空");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            Map<String, Object> retMap = sickService.insertRegistration(name, sex, age, card_no, doctor_id, department_id, ghtype_id, id_card);
+            Map<String, Object> retMap = sickService.insertRegistration(name, sex, age, card_no, doctor_id, department_id, ghtype_id, id_card,ghdate);
             if (!ValidateUtil.checkMapIsNotEmpty(retMap)) {
                 outMsgBean = new OutMsgBean(-100, "查无数据");
                 outJSONMsg(response, outMsgBean);

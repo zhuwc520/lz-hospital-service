@@ -63,7 +63,8 @@ public interface SickMapper extends Mapper<KS> {
                                                   @Param("doctor_id") Integer doctor_id,
                                                   @Param("department_id") Integer department_id,
                                                   @Param("ghtype_id") Integer ghtype_id,
-                                                  @Param("id_card") String id_card
+                                                  @Param("id_card") String id_card,
+                                                  @Param("ghdate") String ghdate
     );
 
     /**

@@ -83,10 +83,10 @@ public class SickServiceImpl implements SickService {
     public Map<String, Object> insertRegistration(String name, Integer sex,
                                                   Integer age, String card_no,
                                                   Integer doctor_id, Integer department_id,
-                                                  Integer ghtype_id, String id_card) {
+                                                  Integer ghtype_id, String id_card,String ghdate) {
 
         Map<String, Object> paramsMap = sickMapper.insertRegistration(name, sex,
-                age, card_no, doctor_id, department_id, ghtype_id, id_card);
+                age, card_no, doctor_id, department_id, ghtype_id, id_card,ghdate);
 
         return paramsMap;
     }

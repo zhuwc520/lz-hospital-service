@@ -50,12 +50,13 @@ public interface SickService {
      * @param doctor_id
      * @param department_id
      * @param card_no
+     * @param ghdate
      * @return
      */
     public Map<String,Object> insertRegistration(String name, Integer sex,
                                                  Integer age, String card_no,
                                                  Integer doctor_id, Integer department_id,
-                                                 Integer ghtype_id,String id_card);
+                                                 Integer ghtype_id,String id_card,String ghdate);
 
     /**
      * 挂号类别查询

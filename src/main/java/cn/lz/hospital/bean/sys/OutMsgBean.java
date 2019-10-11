@@ -12,11 +12,8 @@ public class OutMsgBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer error_code = 200;
     private String error_msg = "成功";
-    private Integer page;
+    private Integer pagecount;
     private Object data;
-
-    public OutMsgBean() {
-    }
 
 
     public OutMsgBean(Integer error_code, String error_msg, Object data) {
@@ -29,9 +26,11 @@ public class OutMsgBean implements Serializable {
         this.data = data;
     }
     public OutMsgBean(Integer page,Object data){
-        this.page = page;
+        this.pagecount = page;
         this.data = data;
     }
+
+
     public OutMsgBean(Integer error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
@@ -61,11 +60,11 @@ public class OutMsgBean implements Serializable {
         this.data = data;
     }
 
-    public Integer getPage() {
-        return page;
+    public Integer getPagecount() {
+        return pagecount;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPagecount(Integer pagecount) {
+        this.pagecount = pagecount;
     }
 }

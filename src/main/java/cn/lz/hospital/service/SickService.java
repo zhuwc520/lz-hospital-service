@@ -1,6 +1,7 @@
 package cn.lz.hospital.service;
 
 import cn.lz.hospital.domain.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -146,5 +147,14 @@ public interface SickService {
      * @return
      */
     public List<FyDetail> queryFyDetailList(String zybm);
+
+
+    /**
+     * 住院清单
+     * @param pm
+     * @return
+     */
+//    public FyInfoBean queryFyDetailList(String zybm,Integer page);
+    public List<FyDetail> queryFyDetailList(Map pm);
 
 }

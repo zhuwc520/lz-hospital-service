@@ -643,24 +643,32 @@ public class SickController extends BaseController {
     //住院清单接口
     @RequestMapping("/queryFyDetailList")
     @ApiOperation(httpMethod = "POST",value = "住院清单",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiImplicitParam(name = "zybm",value = "患者身份证号",required = true,dataType = "string",paramType = "form")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "zybm",value = "患者身份证号",required = true,dataType = "string",paramType = "form"),
+            @ApiImplicitParam(name = "page",value = "页数",required = true,dataType = "string",paramType = "form")
+        }
+    )
+
     public void queryFyDetailList(HttpServletRequest request,HttpServletResponse response){
         OutMsgBean outMsgBean = null;
         try {
             Map<String, Object> paramsMap = new HashMap<>();
             String zybm = getString("zybm", null, paramsMap);
+            String page = getString("page",null,paramsMap);
             if (ValidateUtil.isEmpty(zybm)) {
                 outMsgBean = new OutMsgBean(-100, "参数不能为空");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            List<FyDetail> fyDetails = sickService.queryFyDetailList(zybm);
+
+            List<FyDetail> fyDetails = sickService.queryFyDetailList(paramsMap);
             if (!ValidateUtil.checkListIsNotEmpty(fyDetails)) {
                 outMsgBean = new OutMsgBean(-100, "查无数据");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            outMsgBean = new OutMsgBean(fyDetails);
+
+            outMsgBean = new OutMsgBean((Integer) paramsMap.get("pagecount"),fyDetails);
             LoggerUtils.info("接口[{}]，返回数据:{}", request.getRequestURI(), JSON.toJSONString(outMsgBean));
             outJSONMsg(response, outMsgBean);
         } catch (Exception e) {

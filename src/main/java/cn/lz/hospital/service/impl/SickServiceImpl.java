@@ -166,7 +166,12 @@ public class SickServiceImpl implements SickService {
 
     @Override
     public List<FyDetail> queryFyDetailList(String zybm) {
-        return sickMapper.queryFyDetailList(zybm);
+        return null;
+    }
+
+    @Override
+    public List<FyDetail> queryFyDetailList(Map pm) {
+        return sickMapper.queryFyDetailList(pm);
     }
 
 }

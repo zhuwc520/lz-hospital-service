@@ -119,8 +119,14 @@
     </select>
 
     <!--住院清单-->
-    <select id="queryFyDetailList" resultType="cn.lz.hospital.domain.FyDetail" statementType="CALLABLE">
-        {call pMobile_FyDetailList(#{zybm,mode=IN})}
+    <select id="queryFyDetailList" resultType="cn.lz.hospital.domain.FyDetail" statementType="CALLABLE" parameterMap="pm">
+        {call pMobile_FyDetailList(#{zybm,mode=IN,jdbcType=VARCHAR},#{page,mode=IN,jdbcType=INTEGER},#{pagecount,mode=OUT,jdbcType=INTEGER})}
     </select>
+    
+    <parameterMap id="pm" type="java.util.Map">
+        <parameter property="zybm" jdbcType="VARCHAR" mode="IN"></parameter>
+        <parameter property="page" jdbcType="INTEGER" mode="IN"></parameter>
+        <parameter property="pagecount" jdbcType="INTEGER" mode="OUT"></parameter>
+    </parameterMap>
 
 </mapper>

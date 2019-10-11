@@ -162,10 +162,12 @@ public interface SickMapper extends Mapper<KS> {
 
     /**
      * 住院清单
-     * @param zybm
+     * @param pm
      * @return
      */
-    public List<FyDetail> queryFyDetailList(@Param("zybm") String zybm);
+    public List<FyDetail> queryFyDetailList(Map pm);
+
+//    public FyInfoBean queryFyDetailList(@Param("zybm")String zybm,@Param("zybm")Integer page);
 
 
 }

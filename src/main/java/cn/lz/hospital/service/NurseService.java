@@ -3,7 +3,9 @@ package cn.lz.hospital.service;
 import cn.lz.hospital.domain.HBrList;
 import cn.lz.hospital.domain.HHsList;
 import cn.lz.hospital.domain.HYzList;
+import cn.lz.hospital.domain.HbrInfoBean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public interface NurseService {
      * @param cltime
      * @return
      */
-    public Integer hTwInput(String zybm,Integer temp,Integer pulse,Integer blood1,Integer blood2,String cldate,Integer cltime);
+    public Integer hTwInput(String zybm, BigDecimal temp, Integer pulse, Integer blood1, Integer blood2, String cldate, Integer cltime);
 
     /**
      * 护士列表
@@ -63,4 +65,12 @@ public interface NurseService {
      * @return
      */
     public List<HYzList> getHYzList(String zybm,String yztype,String zt);
+
+    /**
+     * 住院病人信息
+     * @param zybm
+     * @return
+     */
+    public List<HbrInfoBean> getHbrInfoList(String zybm);
+
 }

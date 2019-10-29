@@ -3,11 +3,13 @@ package cn.lz.hospital.service.impl;
 import cn.lz.hospital.domain.HBrList;
 import cn.lz.hospital.domain.HHsList;
 import cn.lz.hospital.domain.HYzList;
+import cn.lz.hospital.domain.HbrInfoBean;
 import cn.lz.hospital.persistence.NurseMapper;
 import cn.lz.hospital.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    public Integer hTwInput(String zybm, Integer temp, Integer pulse, Integer blood1, Integer blood2, String cldate, Integer cltime) {
+    public Integer hTwInput(String zybm, BigDecimal temp, Integer pulse, Integer blood1, Integer blood2, String cldate, Integer cltime) {
         Integer result = nurseMapper.hTwInput(zybm, temp, pulse, blood1, blood2, cldate, cltime);
         return result;
     }
@@ -56,5 +58,10 @@ public class NurseServiceImpl implements NurseService {
     public List<HYzList> getHYzList(String zybm, String yztype, String zt) {
         List<HYzList> hYzLists = nurseMapper.getHYzList(zybm, yztype, zt);
         return hYzLists;
+    }
+
+    @Override
+    public List<HbrInfoBean> getHbrInfoList(String zybm) {
+        return nurseMapper.getHbrInfoList(zybm);
     }
 }

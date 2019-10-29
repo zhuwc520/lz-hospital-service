@@ -38,4 +38,10 @@
     <select id="getHYzList" resultType="cn.lz.hospital.domain.HYzList" statementType="CALLABLE">
       {call pMobile_HYzList(#{zybm,mode=IN},#{yztype,mode=IN},#{zt,mode=IN})}
     </select>
+
+    <!-- 医嘱列表 -->
+    <select id="getHbrInfoList" resultType="cn.lz.hospital.domain.HbrInfoBean" statementType="CALLABLE">
+        {call pMobile_HBrInfo(#{zybm,mode=IN})}
+    </select>
+
 </mapper>

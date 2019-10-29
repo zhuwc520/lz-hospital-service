@@ -5,6 +5,7 @@ import cn.lz.hospital.controller.common.BaseController;
 import cn.lz.hospital.domain.HBrList;
 import cn.lz.hospital.domain.HHsList;
 import cn.lz.hospital.domain.HYzList;
+import cn.lz.hospital.domain.HbrInfoBean;
 import cn.lz.hospital.service.NurseService;
 import cn.lz.hospital.utils.ValidateUtil;
 import com.alibaba.fastjson.JSON;
@@ -21,6 +22,7 @@ import win.hupubao.common.utils.LoggerUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +98,7 @@ public class NurseController extends BaseController {
         try {
             Map<String, Object> paramsMap = new HashMap<>();
             String zybm = getString("zybm", null, paramsMap);
-            Integer temp = getInteger("temp", null, paramsMap);
+            String temp = getString("temp", null, paramsMap);
             Integer pulse = getInteger("pulse", null, paramsMap);
             Integer blood1 = getInteger("blood1", null, paramsMap);
             Integer blood2 = getInteger("blood2", null, paramsMap);
@@ -111,7 +113,9 @@ public class NurseController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            Integer result = nurseService.hTwInput(zybm, temp, pulse, blood1, blood2, cldate, cltime);
+            BigDecimal tempBig = new BigDecimal(temp);
+
+            Integer result = nurseService.hTwInput(zybm, tempBig, pulse, blood1, blood2, cldate, cltime);
             if(result == null){
                 outMsgBean = new OutMsgBean(-100,"填写体征检查数据失败");
                 outJSONMsg(response,outMsgBean);
@@ -291,4 +295,40 @@ public class NurseController extends BaseController {
             outJSONMsg(response, outMsgBean);
         }
     }
+
+    //住院病人信息(pMobile_HBrInfo)
+    @RequestMapping("/brInfo")
+    @ApiOperation(httpMethod = "POST", value = "住院病人信息", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "zybm", value = "患者住院编号", required = true, dataType = "string", paramType = "form"),
+    })
+    public void brInfo(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String zybm = getString("zybm", null, paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if (ValidateUtil.isEmpty(zybm)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            List<HbrInfoBean> hbrInfoBeans = nurseService.getHbrInfoList(zybm);
+            if (!ValidateUtil.checkListIsNotEmpty(hbrInfoBeans)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(hbrInfoBeans);
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+            outJSONMsg(response, outMsgBean);
+        } catch (Exception e) {
+            LoggerUtils.error("住院病人信息，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "住院病人信息，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
+
+    
 }

@@ -3,9 +3,11 @@ package cn.lz.hospital.persistence;
 import cn.lz.hospital.domain.HBrList;
 import cn.lz.hospital.domain.HHsList;
 import cn.lz.hospital.domain.HYzList;
+import cn.lz.hospital.domain.HbrInfoBean;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -30,7 +32,7 @@ public interface NurseMapper {
      * @return
      */
     public Integer hTwInput(@Param("zybm") String zybm,
-                            @Param("temp") Integer temp,
+                            @Param("temp") BigDecimal temp,
                             @Param("pulse") Integer pulse,
                             @Param("blood1") Integer blood1,
                             @Param("blood2") Integer blood2,
@@ -68,4 +70,12 @@ public interface NurseMapper {
      * @return
      */
     public List<HYzList> getHYzList(@Param("zybm") String zybm, @Param("yztype") String yztype, @Param("zt") String zt);
+
+
+    /**
+     * 住院病人信息
+     * @param zybm
+     * @return
+     */
+    public List<HbrInfoBean> getHbrInfoList(@Param("zybm") String zybm);
 }

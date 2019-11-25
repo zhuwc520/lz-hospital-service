@@ -1,9 +1,6 @@
 package cn.lz.hospital.service.impl;
 
-import cn.lz.hospital.domain.HBrList;
-import cn.lz.hospital.domain.HHsList;
-import cn.lz.hospital.domain.HYzList;
-import cn.lz.hospital.domain.HbrInfoBean;
+import cn.lz.hospital.domain.*;
 import cn.lz.hospital.persistence.NurseMapper;
 import cn.lz.hospital.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +22,9 @@ public class NurseServiceImpl implements NurseService {
     private NurseMapper nurseMapper;
 
     @Override
-    public Integer hLogin(Integer id, String password) {
-        Integer result = nurseMapper.hLogin(id, password);
-        return result;
+    public NurseBean hLogin(Integer id, String password) {
+        NurseBean nurseBean = nurseMapper.hLogin(id, password);
+        return nurseBean;
     }
 
     @Override
@@ -37,8 +34,8 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    public List<HHsList> getHHsList() {
-        List<HHsList> hHsLists = nurseMapper.getHHsList();
+    public List<HHsList> getHHsList(String ks) {
+        List<HHsList> hHsLists = nurseMapper.getHHsList(ks);
         return hHsLists;
     }
 

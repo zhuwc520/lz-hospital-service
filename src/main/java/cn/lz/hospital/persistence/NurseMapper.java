@@ -1,9 +1,6 @@
 package cn.lz.hospital.persistence;
 
-import cn.lz.hospital.domain.HBrList;
-import cn.lz.hospital.domain.HHsList;
-import cn.lz.hospital.domain.HYzList;
-import cn.lz.hospital.domain.HbrInfoBean;
+import cn.lz.hospital.domain.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +15,7 @@ public interface NurseMapper {
      * @param password
      * @return
      */
-    public Integer hLogin(@Param("id") Integer id,@Param("password") String password);
+    public NurseBean hLogin(@Param("id") Integer id, @Param("password") String password);
 
     /**
      * 填写体征检查数据
@@ -43,7 +40,7 @@ public interface NurseMapper {
      * 护士列表
      * @return
      */
-    public List<HHsList> getHHsList();
+    public List<HHsList> getHHsList(@Param("ks") String ks);
 
     /**
      * 查房患者列表

@@ -2,10 +2,7 @@ package cn.lz.hospital.controller;
 
 import cn.lz.hospital.bean.sys.OutMsgBean;
 import cn.lz.hospital.controller.common.BaseController;
-import cn.lz.hospital.domain.HBrList;
-import cn.lz.hospital.domain.HHsList;
-import cn.lz.hospital.domain.HYzList;
-import cn.lz.hospital.domain.HbrInfoBean;
+import cn.lz.hospital.domain.*;
 import cn.lz.hospital.service.NurseService;
 import cn.lz.hospital.utils.ValidateUtil;
 import com.alibaba.fastjson.JSON;
@@ -59,20 +56,21 @@ public class NurseController extends BaseController {
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            Integer result = nurseService.hLogin(id, password);
-            if(result == null){
+
+            NurseBean nurseBean = nurseService.hLogin(id, password);
+            if(nurseBean == null){
                 outMsgBean = new OutMsgBean(-100,"登陆失败");
                 outJSONMsg(response,outMsgBean);
                 return;
             }
-            if (result == -1) {
+            if (nurseBean.getResult() == -1) {
                 outMsgBean = new OutMsgBean(-100, "姓名密码验证不通过");
                 outJSONMsg(response, outMsgBean);
                 return;
             }
-            Map<String, Object> retMap = new HashMap<>();
-            retMap.put("result", result);
-            outMsgBean = new OutMsgBean(retMap);
+//            Map<String, Object> retMap = new HashMap<>();
+//            retMap.put("result", nurseBean);
+            outMsgBean = new OutMsgBean(nurseBean);
             LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
             outJSONMsg(response, outMsgBean);
         } catch (Exception e) {
@@ -148,7 +146,11 @@ public class NurseController extends BaseController {
     public void hHsList(HttpServletRequest request, HttpServletResponse response) {
         OutMsgBean outMsgBean = null;
         try {
-            List<HHsList> hHsLists = nurseService.getHHsList();
+
+
+            Map<String, Object> paramsMap = new HashMap<>();
+            String ks = getString("ks", "", paramsMap);
+            List<HHsList> hHsLists = nurseService.getHHsList(ks);
             if (!ValidateUtil.checkListIsNotEmpty(hHsLists)) {
                 outMsgBean = new OutMsgBean(-100, "查无数据");
                 outJSONMsg(response, outMsgBean);

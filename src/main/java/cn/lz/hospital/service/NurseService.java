@@ -1,9 +1,6 @@
 package cn.lz.hospital.service;
 
-import cn.lz.hospital.domain.HBrList;
-import cn.lz.hospital.domain.HHsList;
-import cn.lz.hospital.domain.HYzList;
-import cn.lz.hospital.domain.HbrInfoBean;
+import cn.lz.hospital.domain.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,7 +15,7 @@ public interface NurseService {
      * @param password
      * @return
      */
-    public Integer hLogin(Integer id,String password);
+    public NurseBean hLogin(Integer id, String password);
 
     /**
      * 填写体征检查数据
@@ -37,7 +34,7 @@ public interface NurseService {
      * 护士列表
      * @return
      */
-    public List<HHsList> getHHsList();
+    public List<HHsList> getHHsList(String ks);
 
     /**
      * 查房患者列表

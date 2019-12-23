@@ -70,4 +70,8 @@ public interface NurseService {
      */
     public List<HbrInfoBean> getHbrInfoList(String zybm);
 
+
+    public List<HTwBean> querHtwBeanList(String zybm,String cldate);
+
+
 }

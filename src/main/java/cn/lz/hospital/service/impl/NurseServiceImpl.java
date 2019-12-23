@@ -57,8 +57,16 @@ public class NurseServiceImpl implements NurseService {
         return hYzLists;
     }
 
+
+
     @Override
     public List<HbrInfoBean> getHbrInfoList(String zybm) {
         return nurseMapper.getHbrInfoList(zybm);
+    }
+
+    @Override
+    public List<HTwBean> querHtwBeanList(String zybm, String cldate) {
+        List<HTwBean> hTwBeans = nurseMapper.querHtwBeanList(zybm,cldate);
+        return hTwBeans;
     }
 }

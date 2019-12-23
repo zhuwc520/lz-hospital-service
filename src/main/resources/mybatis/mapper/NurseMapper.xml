@@ -50,4 +50,9 @@
         {call pMobile_HBrInfo(#{zybm,mode=IN})}
     </select>
 
+    <!--体温列表-->
+    <select id="querHtwBeanList" resultType="cn.lz.hospital.domain.HTwBean" statementType="CALLABLE">
+        {call pMobile_HTwList(#{zybm,mode=IN},#{cldate,mode=IN})}
+    </select>
+
 </mapper>

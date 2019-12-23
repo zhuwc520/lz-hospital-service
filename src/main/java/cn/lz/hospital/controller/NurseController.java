@@ -331,6 +331,36 @@ public class NurseController extends BaseController {
         }
     }
 
+    //pMobile_HTwList
+    @RequestMapping("/htwList")
+    public void htwList(HttpServletRequest request, HttpServletResponse response) {
+        OutMsgBean outMsgBean = null;
+        try {
+            Map<String, Object> paramsMap = new HashMap<>();
+            String zybm = getString("zybm", null, paramsMap);
+            String cldate = getString("cldate", null, paramsMap);
+            LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
+            if (ValidateUtil.isEmpty(zybm) || ValidateUtil.isEmpty(cldate)) {
+                outMsgBean = new OutMsgBean(-100, "参数不能为空");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            List<HTwBean> hTwBeans = nurseService.querHtwBeanList(zybm, cldate);
+            if (!ValidateUtil.checkListIsNotEmpty(hTwBeans)) {
+                outMsgBean = new OutMsgBean(-100, "查无数据");
+                outJSONMsg(response, outMsgBean);
+                return;
+            }
+            outMsgBean = new OutMsgBean(hTwBeans);
+            LoggerUtils.info("接口[{}]，请求参数：{}，响应数据：{}", request.getRequestURI(), JSON.toJSONString(paramsMap), JSON.toJSONString(outMsgBean));
+            outJSONMsg(response, outMsgBean);
+        } catch (Exception e) {
+            LoggerUtils.error("体温列表，异常{}", e.getMessage());
+            outMsgBean = new OutMsgBean(-100, "体温列表，发送异常");
+            outJSONMsg(response, outMsgBean);
+        }
+    }
+
 
     
 }

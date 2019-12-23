@@ -75,4 +75,13 @@ public interface NurseMapper {
      * @return
      */
     public List<HbrInfoBean> getHbrInfoList(@Param("zybm") String zybm);
+
+    /***
+     * 获取体温数据
+     * @param zybm
+     * @param cldate
+     * @return
+     */
+    public List<HTwBean> querHtwBeanList(@Param("zybm") String zybm,@Param("cldate") String cldate);
+
 }

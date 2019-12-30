@@ -338,9 +338,9 @@ public class NurseController extends BaseController {
         try {
             Map<String, Object> paramsMap = new HashMap<>();
             String zybm = getString("zybm", null, paramsMap);
-            String cldate = getString("cldate", null, paramsMap);
+            String cldate = getString("cldate", "", paramsMap);
             LoggerUtils.info("接口[{}]，请求参数:{}", request.getRequestURI(), JSON.toJSONString(paramsMap));
-            if (ValidateUtil.isEmpty(zybm) || ValidateUtil.isEmpty(cldate)) {
+            if (ValidateUtil.isEmpty(zybm)) {
                 outMsgBean = new OutMsgBean(-100, "参数不能为空");
                 outJSONMsg(response, outMsgBean);
                 return;

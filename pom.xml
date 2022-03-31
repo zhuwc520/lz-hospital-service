@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<org.springframework.version>4.3.20.RELEASE</org.springframework.version>
+		<org.springframework.version>5.3.18</org.springframework.version>
 		<fastjson.version>1.2.53</fastjson.version>
 		<sqlserver-driver.version>7.4.0.jre8</sqlserver-driver.version>
 		<tk-mybatis-mapper.version>2.0.3</tk-mybatis-mapper.version>
